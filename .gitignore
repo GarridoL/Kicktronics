@@ -57,3 +57,8 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+/src/modules/basics/
+/src/services/api/
+/src/services/broadcasting/
+/src/components/
