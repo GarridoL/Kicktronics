@@ -16,7 +16,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { Color, BasicStyles } from 'common';
-import Circle from 'modules/circle/index.js';
 import { connect } from 'react-redux';
 const width = Math.round(Dimensions.get('window').width);
 class NavigationDrawerStructureRight extends Component {
@@ -218,7 +217,6 @@ const mapDispatchToProps = (dispatch) => {
   const { actions } = require('@redux');
   return {
     removeProduct: () => dispatch(actions.removeProduct()),
-    setCircleSearch: (circleSearch) => dispatch(actions.setCircleSearch(circleSearch))
   };
 };
 

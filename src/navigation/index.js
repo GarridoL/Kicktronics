@@ -7,7 +7,6 @@ import Drawer from './Drawer';
 import DashboardStack from 'modules/dashboard/DashboardDrawer.js';
 import EditProfileStack from 'modules/profile/editProfile/editProfileDrawer.js';
 import AddPaymentStack from 'modules/payment/add/AddPaymentDrawer.js';
-import ViewProfileStack from 'modules/viewProfile/ViewProfileDrawer.js';
 import TermsAndConditionsStack from 'modules/termsAndConditions/TermsAndConditionsDrawer.js';
 import PaymentMethodsStack from 'modules/payment/PaymentMethodsDrawer.js';
 import PrivacyStack from 'modules/privacy/Drawer';
@@ -50,15 +49,6 @@ const ForgotPasswordStack = createStackNavigator(
 const RegisterStack = createStackNavigator(
   {
     registerScreen: { screen: Register },
-  },
-  {
-    headerMode: 'none',
-    navigationOptions: {},
-  },
-);
-const LocationWithMapStack = createStackNavigator(
-  {
-    LocationWithMapScreen: {screen: LocationWithMap},
   },
   {
     headerMode: 'none',

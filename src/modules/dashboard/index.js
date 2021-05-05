@@ -48,7 +48,7 @@ class Dashboard extends Component {
       <View style={{
         flex: 1
       }}>
-        <Text>Welcome</>
+        <Text>Welcome</Text>
       </View>
     );
   }
