@@ -1,5 +1,5 @@
-let primary = '#3F0050'
-let secondary = '#22B173'
+let primary = '#FFFFFF'
+let secondary = '#343434'
 let tertiary = '#F2C94C'
 let fourth = '#000000'
 export default {

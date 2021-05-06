@@ -1,8 +1,8 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import Login from 'modules/basics/rounded/LoginWithFingerPrint';
+import Login from 'modules/basics/Login';
 import FingerprintScan from '../modules/basics/FingerPrintScanner';
 import ForgotPassword from 'modules/basics/rounded/ForgotPassword';
-import Register from 'modules/basics/rounded/Register';
+import Register from 'modules/basics/Register';
 import Drawer from './Drawer';
 import DashboardStack from 'modules/dashboard/DashboardDrawer.js';
 import EditProfileStack from 'modules/profile/editProfile/editProfileDrawer.js';
@@ -11,6 +11,32 @@ import TermsAndConditionsStack from 'modules/termsAndConditions/TermsAndConditio
 import PaymentMethodsStack from 'modules/payment/PaymentMethodsDrawer.js';
 import PrivacyStack from 'modules/privacy/Drawer';
 import GuidelinesStack from 'modules/guidelines/GuidelinesDrawer';
+import LandingPage from 'modules/landing/index.js';
+import HomePage from 'modules/homepage/HomeDrawer.js'
+
+
+// Landing stack
+const LandingPageStack = createStackNavigator(
+  {
+    loginScreen: { screen: LandingPage },
+  },
+  {
+    headerMode: 'none',
+    navigationOptions: {},
+  },
+);
+
+// HomePage stack
+const HomePageStack = createStackNavigator(
+  {
+    loginScreen: { screen: HomePage },
+  },
+  {
+    headerMode: 'none',
+    navigationOptions: {},
+  },
+);
+
 
 // login stack
 const LoginStack = createStackNavigator(
@@ -58,6 +84,8 @@ const RegisterStack = createStackNavigator(
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator(
   {
+    landingPageStack: {screen: LandingPageStack},
+    homePageStack: {screen: HomePageStack},
     loginStack: {screen: LoginStack},
     fingerPrintStack: {screen: FingerPrintStack},
     forgotPasswordStack: {screen: ForgotPasswordStack},
@@ -74,8 +102,8 @@ const PrimaryNav = createStackNavigator(
   {
     // Default config for all screens
     headerMode: 'none',
-    title: 'Main',
-    initialRouteName: 'loginStack',
+    title: 'Main Menu',
+    initialRouteName: 'landingPageStack',
   },
 );
 
