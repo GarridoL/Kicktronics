@@ -23,7 +23,6 @@ class SubHeader extends Component {
           search: null
         }
     }
-
     render(){
         return(
             <View style={{flex: 1, flexDirection: 'row', width: width, position: 'absolute', bottom: 0, backgroundColor: 'white', zIndex: 1000, marginLeft: 30, paddingRight: 20, paddingTop: 10, paddingBottom: 5}}>
