@@ -25,23 +25,24 @@ class SubHeader extends Component {
     }
     render(){
         return(
-            <View style={{flex: 1, flexDirection: 'row', width: width, position: 'absolute', bottom: 0, backgroundColor: 'white', zIndex: 1000, marginLeft: 30, paddingRight: 20, paddingTop: 10, paddingBottom: 5}}>
-                <View style={{flex: 13, flexDirection: 'column'}}>
+            <View style={{flexDirection: 'row', justifyContent: 'center', width: width, position: 'absolute', bottom: 0, backgroundColor: 'white', zIndex: 1000, 
+             paddingTop: 10, paddingBottom: 5}}>
+                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
                     <TouchableOpacity>
                         <FontAwesomeIcon icon={faHome} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex: 13, flexDirection: 'column'}}>
+                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
                     <TouchableOpacity>
                         <FontAwesomeIcon icon={faSearch} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex: 13, flexDirection: 'column'}}>
+                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
                     <TouchableOpacity>
                         <FontAwesomeIcon icon={faChartLine} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex: 13, flexDirection: 'column'}}>
+                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
                     <TouchableOpacity>
                         <FontAwesomeIcon icon={faUser} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>

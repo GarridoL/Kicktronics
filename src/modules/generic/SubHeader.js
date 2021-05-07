@@ -24,23 +24,23 @@ class SubHeader extends Component {
 
     render(){
         return(
-            <View style={{flex: 1, flexDirection: 'row', width: width, position: 'absolute', backgroundColor: 'white', zIndex: 1000, marginLeft: 30, paddingRight: 20, paddingTop: 10}}>
-                <View style={{flex: 13, flexDirection: 'column'}}>
+            <View style={{flex: 1, flexDirection: 'row', width: width, position: 'absolute', backgroundColor: 'white', zIndex: 1000, paddingTop: 10}}>
+                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
                     <TouchableOpacity>
                         <FontAwesomeIcon icon={faHome} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex: 13, flexDirection: 'column'}}>
+                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
                     <TouchableOpacity>
                         <FontAwesomeIcon icon={faChartLine} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex: 13, flexDirection: 'column'}}>
+                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
                     <TouchableOpacity>
                         <FontAwesomeIcon icon={faCalendarAlt} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex: 13, flexDirection: 'column'}}>
+                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
                     <TouchableOpacity>
                         <FontAwesomeIcon icon={faEllipsisH} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
