@@ -4,5 +4,11 @@ import { Dimensions } from 'react-native';
 export default {
     iconSize: {
         size: 35
+    },
+    cardStyleWithShadow: {
+        ...BasicStyles.standardShadow,
+        borderRadius: BasicStyles.standardBorderRadius,
+        backgroundColor: Color.primary,
+        padding: 10
     }
 }
