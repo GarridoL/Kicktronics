@@ -49,7 +49,7 @@ const height = Math.round(Dimensions.get('window').height);
                 alignItems: 'center'
               }}>
   
-                <TouchableOpacity style={[Style.btnWithShadow]} onPress={() => this.props.navigation.navigate('homePageStack')}>
+                <TouchableOpacity style={[Style.btnWithShadow]} onPress={() => this.props.navigation.navigate('loginStack')}>
                   <Text style={{fontWeight: 'bold'}}>SIGN UP</Text>
                 </TouchableOpacity>
               </View>

@@ -7,7 +7,8 @@ import Api from '../services/api';
 const types = {
   LOGOUT: 'LOGOUT',
   LOGIN: 'LOGIN',
-  UPDATE_USER: 'UPDATE_USER'
+  UPDATE_USER: 'UPDATE_USER',
+  SET_ACTIVE_HEADER: 'SET_ACTIVE_HEADER'
 };
 
 export const actions = {
@@ -19,13 +20,17 @@ export const actions = {
   },
   updateUser: (user) => {
     return {type: types.UPDATE_USER, user};
+  },
+  setUpdateHeader: (active) => {
+    return {type: type.SET_ACTIVE_HEADER, active};
   }
 };
 
 const date = new Date()
 const initialState = {
   token: null,
-  user: null
+  user: null,
+  activeHeader: false
 };
 
 storeData = async (key, value) => {
@@ -46,6 +51,7 @@ storeData = async (key, value) => {
 
 const reducer = (state = initialState, action) => {
   const {type, user, token} = action;
+  const { active } = action
   switch (type) {
     case types.LOGOUT:
       // storeData('token', '');
@@ -61,6 +67,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         user,
+      }
+    case types.SET_ACTIVE_HEADER:
+      return {
+        ...state,
+        activeHeader: active,
       }
     default:
       return {...state, nav: state.nav};

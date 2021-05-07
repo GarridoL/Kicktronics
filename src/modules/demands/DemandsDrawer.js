@@ -3,7 +3,7 @@ import {View, TouchableOpacity, Text, Dimensions} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChevronLeft, faBars} from '@fortawesome/free-solid-svg-icons';
-import HomePage from 'modules/homepage/index.js';
+import Demands from 'modules/demands/index.js';
 import {NavigationActions} from 'react-navigation';
 import {BasicStyles, Color} from 'common';
 import {connect} from 'react-redux';
@@ -40,13 +40,13 @@ const mapDispatchToProps = (dispatch) => {
 };
 let HeaderOptionsConnect  = connect(mapStateToProps, mapDispatchToProps)(HeaderOptions);
 
-const HomePageStack = createStackNavigator({
+const DemandsStack = createStackNavigator({
   termsAndConditionsScreen: {
-    screen: HomePage,
+    screen: Demands,
     navigationOptions: ({navigation}) => ({
-      title: 'BUY NOW',
+      title: 'HIGH DEMANDS',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
-      headerTitleStyle:{marginLeft: -30, zIndex: 1000},
+      headerTitleStyle:{marginLeft: -30},
       headerStyle:{elevation: 0},
       // headerTransparent:true,
       ...BasicStyles.drawerHeader1
@@ -57,4 +57,4 @@ const HomePageStack = createStackNavigator({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(HomePageStack);
+)(DemandsStack);

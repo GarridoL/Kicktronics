@@ -10,7 +10,6 @@ class Card extends Component {
 
     render(){
       const {item} = this.props
-      console.log(item);
       return(
         <TouchableOpacity style={[Style.cardStyleWithShadow, {marginBottom: 13, width: '48%', height: '25%', paddingTop: 10}]}>
           <View>

@@ -42,7 +42,7 @@ let response = {
     render(){
         return(
             <View>
-                <SubHeader/>
+                <SubHeader navigation={this.props.navigation}/>
                 <ScrollView
                 showsVerticalScrollIndicator={false}>
                 <View style={{
@@ -63,10 +63,21 @@ let response = {
                     </View>
                 </View>
             </ScrollView>
-            <Footer/>
+            <Footer navigation={this.props.navigation}/>
         </View>
         )
     }
   }
 
-export default HomePage;
+  const mapStateToProps = state => ({ state: state });
+
+  const mapDispatchToProps = dispatch => {
+    const { actions } = require('@redux');
+    return {
+    };
+  };
+  
+  export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(HomePage);

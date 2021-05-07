@@ -12,6 +12,10 @@ import { Product, Marketplace, Checkout } from 'components';
 import OptionRight from './OptionRight';
 import OptionRightRequest from './OptionRightRequest';
 import TermsAndConditions from 'modules/termsAndConditions';
+import DemandsStack from 'modules/demands/DemandsDrawer.js';
+import HomePageStack from 'modules/homepage/HomeDrawer.js';
+import AccessoriesStack from 'modules/accessories/AccessoriesDrawer.js'
+import UpcomingStack from 'modules/upcoming/UpcomingDrawer.js'
 import Style from './Style.js';
 import { connect } from 'react-redux'
 
@@ -86,6 +90,42 @@ const _StackNavigator = createStackNavigator({
       headerTransparent: true
     }),
   },
+  Demands: {
+    screen: DemandsStack,
+    navigationOptions: ({ navigation }) => ({
+      title: null,
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: null,
+      headerTransparent: true
+    }),
+  },
+  HomePage: {
+    screen: HomePageStack,
+    navigationOptions: ({ navigation }) => ({
+      title: null,
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: null,
+      headerTransparent: true
+    }),
+  },
+  Upcoming: {
+    screen: UpcomingStack,
+    navigationOptions: ({ navigation }) => ({
+      title: null,
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: null,
+      headerTransparent: true
+    }),
+  },
+  Accesories: {
+    screen: AccessoriesStack,
+    navigationOptions: ({ navigation }) => ({
+      title: null,
+      headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
+      headerRight: null,
+      headerTransparent: true
+    }),
+  },
 });
 
 const Drawer = createDrawerNavigator(
@@ -106,6 +146,30 @@ const Drawer = createDrawerNavigator(
       screen: _StackNavigator,
       navigationOptions: {
         drawerLabel: 'Terms and Condition',
+      },
+    },
+    Demands: {
+      screen: _StackNavigator,
+      navigationOptions: {
+        drawerLabel: 'Demands',
+      },
+    },
+    Homepage: {
+      screen: _StackNavigator,
+      navigationOptions: {
+        drawerLabel: 'Homepage',
+      },
+    },
+    Upcoming: {
+      screen: _StackNavigator,
+      navigationOptions: {
+        drawerLabel: 'Upcoming',
+      },
+    },
+    Accesories: {
+      screen: _StackNavigator,
+      navigationOptions: {
+        drawerLabel: 'Accesories',
       },
     },
   },
