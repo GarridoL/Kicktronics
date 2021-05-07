@@ -89,7 +89,7 @@ class NavigationDrawerStructureRight extends Component {
             <FontAwesomeIcon
               icon={faBars}
               size={20}
-              style={{ color: '#FFFFFF' }}
+              style={{ color: '#000000' }}
             />
         </TouchableOpacity>
         {

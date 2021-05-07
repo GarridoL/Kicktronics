@@ -7,7 +7,8 @@ import {
   faSearch,
   faChartLine,
   faUser,
-  faEllipsisH
+  faEllipsisH,
+  faTag
 } from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { Color, BasicStyles } from 'common';
@@ -39,7 +40,7 @@ class SubHeader extends Component {
                 </View>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
                     <TouchableOpacity>
-                        <FontAwesomeIcon icon={faChartLine} size={30}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faTag} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
