@@ -51,5 +51,11 @@ export default {
     paddingBottom: 2,
     paddingLeft: 10,
     paddingRight: 10
-  }
+  },
+  headerStyle: {
+    backgroundColor: Color.white,
+    borderBottomColor: Color.gray,
+    borderBottomWidth: 0.5,
+    height: 80,
+  },
 }

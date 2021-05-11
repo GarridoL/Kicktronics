@@ -31,7 +31,7 @@ class Accessories extends Component{
     render(){
         return (
             <View>
-                <SubHeader navigation={this.props.navigation}/>
+                <SubHeader navigation={this.props.navigation} index={4}/>
                 <ScrollView>
                 <View style={{
                     height: height,
@@ -46,7 +46,7 @@ class Accessories extends Component{
                     </Text>
                 </View>
                 </ScrollView>
-                <Footer navigation={this.props.navigation}/>
+                <Footer navigation={this.props.navigation}  index={1}/>
             </View>
         )
     }
