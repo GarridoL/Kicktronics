@@ -12,7 +12,8 @@ import PaymentMethodsStack from 'modules/payment/PaymentMethodsDrawer.js';
 import PrivacyStack from 'modules/privacy/Drawer';
 import GuidelinesStack from 'modules/guidelines/GuidelinesDrawer';
 import LandingPage from 'modules/landing/index.js';
-import HomePage from 'modules/homepage/HomeDrawer.js'
+import HomePage from 'modules/homepage/HomeDrawer.js';
+import TermsStack from 'modules/terms/drawer.js'
 
 
 // Landing stack
@@ -98,6 +99,7 @@ const PrimaryNav = createStackNavigator(
     paymentMethodsStack: { screen: PaymentMethodsStack },
     privacyStack: { screen: PrivacyStack},
     guidelinesStack: { screen: GuidelinesStack},
+    termsStack: { screen: TermsStack},
   },
   {
     // Default config for all screens
