@@ -31,7 +31,7 @@ class Upcoming extends Component{
     render(){
         return (
             <View>
-                <SubHeader navigation={this.props.navigation}/>
+                <SubHeader navigation={this.props.navigation} index={3}/>
                 <ScrollView>
                 <View style={{
                     height: height,
@@ -46,7 +46,7 @@ class Upcoming extends Component{
                     </Text>
                 </View>
                 </ScrollView>
-                <Footer navigation={this.props.navigation}/>
+                <Footer navigation={this.props.navigation}  index={1}/>
             </View>
         )
     }

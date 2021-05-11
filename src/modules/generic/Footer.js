@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, Platform, Dimensions, Share, TextInput } from 'react-native';
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, StackActions } from 'react-navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
   faHome,
@@ -24,28 +24,46 @@ class SubHeader extends Component {
           search: null
         }
     }
+    navigateToScreen = async (route) => {
+        const navigateAction = NavigationActions.navigate({
+          routeName: 'drawerStack',
+          action: StackActions.reset({
+            index: 0,
+            key: null,
+            actions: [
+                NavigationActions.navigate({routeName: route, params: {
+                  initialRouteName: route,
+                  index: 0
+                }}),
+            ]
+          })
+        });
+        this.props.navigation.dispatch(navigateAction);
+    }
+
     render(){
+        const {index} = this.props
         return(
             <View style={{flexDirection: 'row', justifyContent: 'center', width: width, position: 'absolute', bottom: 0, backgroundColor: 'white', zIndex: 1000, 
              paddingTop: 10, paddingBottom: 5}}>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
-                    <TouchableOpacity>
-                        <FontAwesomeIcon icon={faHome} size={30}></FontAwesomeIcon>
+                    <TouchableOpacity onPress={() => this.navigateToScreen('HomePage')}>
+                        <FontAwesomeIcon icon={faHome} color={index === 1 ? Color.gray : Color.secondary} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
-                    <TouchableOpacity>
-                        <FontAwesomeIcon icon={faSearch} size={30}></FontAwesomeIcon>
+                    <TouchableOpacity onPress={() => this.navigateToScreen('Search')}>
+                        <FontAwesomeIcon icon={faSearch} color={index === 2 ? Color.gray : Color.secondary} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
-                    <TouchableOpacity>
-                        <FontAwesomeIcon icon={faTag} size={30}></FontAwesomeIcon>
+                    <TouchableOpacity onPress={() => this.navigateToScreen('Dashboard')}>
+                        <FontAwesomeIcon icon={faTag} color={index === 3 ? Color.gray : Color.secondary} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
-                    <TouchableOpacity>
-                        <FontAwesomeIcon icon={faUser} size={30}></FontAwesomeIcon>
+                    <TouchableOpacity onPress={() => this.navigateToScreen('Profile')}>
+                        <FontAwesomeIcon icon={faUser} color={index === 4 ? Color.gray : Color.secondary} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
             </View>

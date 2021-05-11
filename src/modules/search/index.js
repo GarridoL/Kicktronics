@@ -27,5 +27,29 @@ class Search extends Component{
 
         }
     }
+
+    componentDidMount(){
+        console.log("[PROPS:] ", this.props.navigation.state.params);
+    }
+
+    render(){
+        return (
+            <View>
+                <ScrollView
+                showsVerticalScrollIndicator={false}>
+                <View style={{
+                    height: height,
+                    // flex: 1,
+                    backgroundColor: '#F5F5F5',
+                    paddingLeft: 10,
+                    paddingRight: 10
+                }}>
+                    <Text>Hello search</Text>
+                </View>
+                </ScrollView>
+                <Footer navigation={this.props.navigation}  index={2}/>
+            </View>
+        )
+    }
 }
 export default Search

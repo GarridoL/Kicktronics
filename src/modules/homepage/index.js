@@ -42,7 +42,7 @@ let response = {
     render(){
         return(
             <View>
-                <SubHeader navigation={this.props.navigation}/>
+                <SubHeader navigation={this.props.navigation} index={1}/>
                 <ScrollView
                 showsVerticalScrollIndicator={false}>
                 <View style={{
@@ -63,7 +63,7 @@ let response = {
                     </View>
                 </View>
             </ScrollView>
-            <Footer navigation={this.props.navigation}/>
+            <Footer navigation={this.props.navigation} index={1}/>
         </View>
         )
     }

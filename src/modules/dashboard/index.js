@@ -15,6 +15,7 @@ import {Routes, Color, Helper, BasicStyles} from 'common';
 import {connect} from 'react-redux';
 import {Dimensions} from 'react-native';
 import { Pager, PagerProvider } from '@crowdlinker/react-native-pager';
+import Footer from 'modules/generic/Footer.js'
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
 
@@ -45,10 +46,20 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <View style={{
-        flex: 1
-      }}>
-        <Text>Welcome</Text>
+      <View>
+          <ScrollView
+          showsVerticalScrollIndicator={false}>
+          <View style={{
+              height: height,
+              // flex: 1,
+              backgroundColor: '#F5F5F5',
+              paddingLeft: 10,
+              paddingRight: 10
+          }}>
+              <Text>Hello search</Text>
+          </View>
+          </ScrollView>
+          <Footer navigation={this.props.navigation}  index={3}/>
       </View>
     );
   }
