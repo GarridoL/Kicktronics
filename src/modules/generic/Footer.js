@@ -48,22 +48,22 @@ class SubHeader extends Component {
              paddingTop: 10, paddingBottom: 5}}>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('HomePage')}>
-                        <FontAwesomeIcon icon={faHome} color={index === 1 ? Color.gray : Color.secondary} size={30}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faHome} color={index === 1 ? Color.secondary : Color.gray} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('Search')}>
-                        <FontAwesomeIcon icon={faSearch} color={index === 2 ? Color.gray : Color.secondary} size={30}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faSearch} color={index === 2 ? Color.secondary : Color.gray} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('Dashboard')}>
-                        <FontAwesomeIcon icon={faTag} color={index === 3 ? Color.gray : Color.secondary} size={30}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faTag} color={index === 3 ? Color.secondary : Color.gray} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('Profile')}>
-                        <FontAwesomeIcon icon={faUser} color={index === 4 ? Color.gray : Color.secondary} size={30}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faUser} color={index === 4 ? Color.secondary : Color.gray} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
             </View>

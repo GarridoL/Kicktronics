@@ -22,13 +22,13 @@ const height = Math.round(Dimensions.get('window').height);
 
 let response = {
     data: [
-        {'id': 1, 'url': require('assets/logo0.png'), 'price': '$200', 'title': 'Adidas'},
-        {'id': 2, 'url': require('assets/logo.png'), 'price': '$200', 'title': 'Nike'},
+        {'id': 1, 'url': require('assets/logo.png'), 'price': '$200', 'title': 'Adidas'},
+        {'id': 2, 'url': require('assets/logo2.png'), 'price': '$200', 'title': 'Nike'},
         {'id': 3, 'url': require('assets/logo1.png'), 'price': '$200', 'title': 'Rebook'},
-        {'id': 4, 'url': require('assets/logo0.png'), 'price': '$200', 'title': 'World Balance'},
-        {'id': 5, 'url': require('assets/logo.png'), 'price': '$200', 'title': 'New Balance'},
+        {'id': 4, 'url': require('assets/logo.png'), 'price': '$200', 'title': 'World Balance'},
+        {'id': 5, 'url': require('assets/logo2.png'), 'price': '$200', 'title': 'New Balance'},
         {'id': 6, 'url': require('assets/logo1.png'), 'price': '$200', 'title': 'Snicker'},
-        {'id': 7, 'url': require('assets/logo0.png'), 'price': '$200', 'title': 'Robetson'}
+        {'id': 7, 'url': require('assets/logo.png'), 'price': '$200', 'title': 'Robetson'}
     ]
 }
 
