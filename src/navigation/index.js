@@ -21,7 +21,7 @@ const LandingPageStack = createStackNavigator(
     loginScreen: { screen: LandingPage },
   },
   {
-    headerMode: 'none',
+    headerMode: 'screen',
     navigationOptions: {},
   },
 );
