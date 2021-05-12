@@ -146,7 +146,6 @@ export default {
   standardBorderRadius: borderRadius,
   headerDrawerStyle: {
     headerStyle: {
-      elevation: 10,
       backgroundColor: Color.white,
       height: 60,
       fontSize: 18

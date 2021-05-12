@@ -1,21 +1,19 @@
-import React, { Component } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
-import { createStackNavigator } from 'react-navigation-stack';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faQrcode, faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import Dashboard from 'modules/dashboard/index.js';
-import { NavigationActions } from 'react-navigation';
-import { BasicStyles, Color } from 'common';
+import React, {Component} from 'react';
+import {View, TouchableOpacity, Text, Dimensions} from 'react-native';
+import {createStackNavigator} from 'react-navigation-stack';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faChevronLeft, faBars, faSearch} from '@fortawesome/free-solid-svg-icons';
+import Search from 'modules/search/index.js';
+import TextInputWithIcon from 'components/InputField/TextInputWithIcon.js'
+import {NavigationActions} from 'react-navigation';
+import {BasicStyles, Color} from 'common';
 import {connect} from 'react-redux';
 import Style from './Style.js'
+const width = Math.round(Dimensions.get('window').width);
 class HeaderOptions extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isVisible: false
-    }
   }
-
   back = () => {
     this.props.navigationProps.pop()
   };
@@ -44,16 +42,17 @@ const mapDispatchToProps = (dispatch) => {
 };
 let HeaderOptionsConnect  = connect(mapStateToProps, mapDispatchToProps)(HeaderOptions);
 
-const DashboardStack = createStackNavigator({
+const SearchStack = createStackNavigator({
   termsAndConditionsScreen: {
-    screen: Dashboard,
+    screen: Search,
     navigationOptions: ({navigation}) => ({
-      title: 'DASHBOARD',
+      title: 'SEARCH',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
+      headerRight: <TextInputWithIcon icon={faSearch} placeholder={'Search'} style={{width: 270, marginTop: 20, borderColor: '#000000', marginRight: 10}}/>,
       headerTitleStyle:{marginLeft: -30},
-      headerStyle:{elevation: 0},
       headerStyle: Style.headerStyle,
-      // headerTransparent:true,
+    //   headerTintColor: Color.primary,
+      ...BasicStyles.drawerHeader1
     }),
   },
 });
@@ -61,4 +60,4 @@ const DashboardStack = createStackNavigator({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(DashboardStack);
+)(SearchStack);

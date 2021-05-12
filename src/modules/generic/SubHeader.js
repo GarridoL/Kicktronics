@@ -25,7 +25,6 @@ class SubHeader extends Component {
         }
     }
     componentDidMount(){
-        console.log('redner::::::::::::::');
     }
 
     navigateToScreen = async (route, index) => {
@@ -44,7 +43,7 @@ class SubHeader extends Component {
             actions: [
                 NavigationActions.navigate({routeName: route, params: {
                   initialRouteName: route,
-                  index: 0
+                  index: index
                 }}),
             ]
           })
@@ -53,25 +52,26 @@ class SubHeader extends Component {
     }
     render(){
         const { activeIndex } = this.state;
+        const { index } = this.props;
         console.log('active index: ', activeIndex);
         return(
             <View style={{flex: 1, flexDirection: 'row', width: width, position: 'absolute', backgroundColor: 'white', zIndex: 1000, paddingTop: 10}}>
-                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center',  borderBottomColor: activeIndex == 1 ? 'black' : '', borderBottomWidth: activeIndex == 1 ? 4 : null}}>
+                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center',  borderBottomColor: index == 1 ? 'black' : '', borderBottomWidth: index == 1 ? 4 : null}}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('HomePage', 1)}>
                         <FontAwesomeIcon icon={faShoppingCart} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center', borderBottomColor: activeIndex == 2 ? 'black' : '', borderBottomWidth: activeIndex == 2 ? 4 : null}}>
+                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center', borderBottomColor: index == 2 ? 'black' : '', borderBottomWidth: index == 2 ? 4 : null}}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('Demands', 2)}>
                         <FontAwesomeIcon icon={faFire} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center', borderBottomColor: activeIndex == 3 ? 'black' : '', borderBottomWidth: activeIndex == 3 ? 4 : null}}>
+                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center', borderBottomColor: index == 3 ? 'black' : '', borderBottomWidth: index == 3 ? 4 : null}}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('Upcoming', 3)}>
                         <FontAwesomeIcon icon={faCalendarAlt} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center', borderBottomColor: activeIndex == 4 ? 'black' : '', borderBottomWidth: activeIndex == 4 ? 4 : null}}>
+                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center', borderBottomColor: index == 4 ? 'black' : '', borderBottomWidth: index == 4 ? 4 : null}}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('Accesories', 4)}>
                         <FontAwesomeIcon icon={faEllipsisH} size={30}></FontAwesomeIcon>
                     </TouchableOpacity>

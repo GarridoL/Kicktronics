@@ -17,38 +17,42 @@ import { Routes, Color, Helper, BasicStyles } from 'common';
 import SubHeader from 'modules/generic/SubHeader.js'
 import Footer from 'modules/generic/Footer.js'
 import Card from 'modules/generic/Card.js'
+import ModalOptions from 'modules/modal/options.js'
+
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
 
-class Demands extends Component{
+class ProfileEnhance extends Component{
     constructor(props){
         super(props)
         this.state = {
 
         }
     }
+
+    componentDidMount(){
+        console.log("[PROPS:] ", this.props.navigation.state.params);
+    }
+
     render(){
-        console.log(this.props.navigation.state.params);
         return (
             <View>
-                <SubHeader navigation={this.props.navigation} index={2}/>
-                <ScrollView>
+                <ScrollView
+                showsVerticalScrollIndicator={false}>
                 <View style={{
                     height: height,
                     // flex: 1,
                     backgroundColor: '#F5F5F5',
                     paddingLeft: 10,
-                    paddingRight: 10,
-                    paddingTop: 50
+                    paddingRight: 10
                 }}>
-                    <Text>
-                        High demand Page
-                    </Text>
+                    <Text>Hello search</Text>
                 </View>
                 </ScrollView>
-                <Footer navigation={this.props.navigation}  index={1}/>
+                <ModalOptions navigation={this.props.navigation}></ModalOptions>
+                <Footer navigation={this.props.navigation}  index={4}/>
             </View>
         )
     }
 }
-export default Demands
+export default ProfileEnhance
