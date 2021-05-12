@@ -46,13 +46,11 @@ const SearchStack = createStackNavigator({
   termsAndConditionsScreen: {
     screen: Search,
     navigationOptions: ({navigation}) => ({
-      title: 'SEARCH',
+      title: '',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
-      headerRight: <TextInputWithIcon icon={faSearch} placeholder={'Search'} style={{width: 270, marginTop: 20, borderColor: '#000000', marginRight: 10}}/>,
-      headerTitleStyle:{marginLeft: -30},
-      headerStyle: Style.headerStyle,
-    //   headerTintColor: Color.primary,
-      ...BasicStyles.drawerHeader1
+      headerRight: <TextInputWithIcon icon={faSearch} placeholder={'Search'} style={{width: width-20, marginTop: 20, borderColor: '#000000', marginRight: 10}}/>,
+      // headerTitleStyle: { marginLeft: '45%'},
+      headerStyle: Style.headerStyle
     }),
   },
 });

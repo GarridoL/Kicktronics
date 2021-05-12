@@ -11,9 +11,9 @@ class Card extends Component {
     render(){
       const {item} = this.props
       return(
-        <TouchableOpacity style={[Style.cardStyleWithShadow, {marginBottom: 13, width: '48%', height: '25%', paddingTop: 10}]}>
+        <TouchableOpacity style={[Style.cardStyleWithShadow, {marginBottom: 13, width: '48%', height: '25%', paddingTop: 10}, this.props.style]}>
           <View>
-            <Image source={item.url} style={{width: '60%', height: '70%', marginLeft: 'auto', marginRight: 'auto'}}/>
+            <Image source={item.url} style={{width: '60%', height: '70%', marginLeft: 'auto', marginRight: 'auto', resizeMode: 'stretch'}}/>
             <Text>{item.title}</Text>
             <Text>{item.price}</Text>
           </View>

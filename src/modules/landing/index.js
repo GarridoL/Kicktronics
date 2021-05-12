@@ -39,7 +39,7 @@ const height = Math.round(Dimensions.get('window').height);
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginTop: 100}}>
-              <Image source={require('assets/logo0.png')} style={{width: '50%', height: '50%'}}/>
+              <Image source={require('assets/logo.png')} style={{width: '50%', height: '50%'}}/>
               <Text style={{fontSize: 18}}>Kicktronics</Text>
               </View>
   

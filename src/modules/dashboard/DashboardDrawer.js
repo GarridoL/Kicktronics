@@ -48,11 +48,10 @@ const DashboardStack = createStackNavigator({
   termsAndConditionsScreen: {
     screen: Dashboard,
     navigationOptions: ({navigation}) => ({
-      title: 'DASHBOARD',
+      title: 'Dashboard',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
-      headerTitleStyle:{marginLeft: -30},
-      headerStyle:{elevation: 0},
-      headerStyle: Style.headerStyle,
+      headerTitleStyle: { marginLeft: 'auto', marginRight: '40%'},
+      headerStyle: Style.headerStyle
       // headerTransparent:true,
     }),
   },
