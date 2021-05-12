@@ -3,7 +3,7 @@ import {View, TouchableOpacity, Text} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChevronLeft, faBars} from '@fortawesome/free-solid-svg-icons';
-import TermsAndConditions from 'modules/termsAndConditions';
+import Terms from 'modules/terms';
 import {NavigationActions} from 'react-navigation';
 import {BasicStyles, Color} from 'common';
 import {connect} from 'react-redux';
@@ -14,7 +14,6 @@ class HeaderOptions extends Component {
   }
   back = () => {
     this.props.navigationProps.pop()
-    this.props.setModalOptions(true)
   };
   render() {
     const { theme } = this.props.state;
@@ -43,11 +42,11 @@ const mapDispatchToProps = (dispatch) => {
 
 let HeaderOptionsConnect  = connect(mapStateToProps, mapDispatchToProps)(HeaderOptions);
 
-const TermsAndConditionsStack = createStackNavigator({
-  termsAndConditionsScreen: {
-    screen: TermsAndConditions,
+const TermsStack = createStackNavigator({
+  termsScreen: {
+    screen: Terms,
     navigationOptions: ({navigation}) => ({
-      title: 'Terms and Conditions',
+      title: '',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
       ...BasicStyles.headerDrawerStyle
     }),
@@ -57,4 +56,4 @@ const TermsAndConditionsStack = createStackNavigator({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(TermsAndConditionsStack);
+)(TermsStack);

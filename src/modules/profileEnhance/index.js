@@ -17,6 +17,8 @@ import { Routes, Color, Helper, BasicStyles } from 'common';
 import SubHeader from 'modules/generic/SubHeader.js'
 import Footer from 'modules/generic/Footer.js'
 import Card from 'modules/generic/Card.js'
+import ModalOptions from 'modules/modal/options.js'
+
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
 
@@ -47,6 +49,7 @@ class ProfileEnhance extends Component{
                     <Text>Hello search</Text>
                 </View>
                 </ScrollView>
+                <ModalOptions navigation={this.props.navigation}></ModalOptions>
                 <Footer navigation={this.props.navigation}  index={4}/>
             </View>
         )

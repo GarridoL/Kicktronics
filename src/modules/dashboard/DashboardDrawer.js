@@ -54,7 +54,6 @@ const DashboardStack = createStackNavigator({
       headerStyle:{elevation: 0},
       headerStyle: Style.headerStyle,
       // headerTransparent:true,
-      ...BasicStyles.drawerHeader1
     }),
   },
 });

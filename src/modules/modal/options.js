@@ -4,25 +4,57 @@ import { Routes, Color, Helper, BasicStyles } from 'common';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import styles from './optionsStyle.js';
 
 const height = Math.round(Dimensions.get('window').height);
 const width = Math.round(Dimensions.get('window').width);
 
+class Options extends Component {
+  constructor(props) {
+    super(props);
+    this.state
+  }
 
-class TermsAndConditions extends Component {
-
-  redirect = (item) => {
-    this.props.navigation.navigate('termsStack', {data: item});
+  redirect = (route) => {
+    if(route === 'termsAndConditionsStack') {
+      this.props.navigation.navigate(route);
+    } else if (route === 'returnPolicyStack'){
+      this.props.navigation.navigate('termsStack', { data: {
+        title: '',
+        arrowRight: true,
+        color: null,
+        route: 'termsAndConditionsStack',
+        description: "All sales are final and no returns are accepted. Please make sure you have chosen the correct size."
+      }})
+    }
+    this.props.setModalOptions(false);
   }
 
   render() {
     return (
-      <ScrollView
-        showsVerticalScrollIndicator={false}>
-        <View style={{
+      <View>
+        <Modal
+          animationType="slide"
+          visible={this.props.state.show}
+        >
+          <View style={{
+            borderBottomColor: Color.gray,
+            borderBottomWidth: .3
+          }}>
+            <TouchableOpacity style={{
+              padding: 15
+            }}
+              onPress={() => {
+                this.props.setModalOptions(false);
+              }}
+            >
+              <Text>Cancel</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={{
             paddingLeft: 15
           }}>
-            {Helper.termsAndConditions.map((item, index) => (
+            {Helper.options.map((item, index) => (
               <TouchableOpacity style={{
                 paddingTop: 20,
                 paddingBottom: 20,
@@ -31,12 +63,10 @@ class TermsAndConditions extends Component {
                 flexDirection: 'row'
               }}
               onPress={() => {
-                this.redirect(item)
-              }}
-              >
+                this.redirect(item.route)
+              }}>
                 <Text style={{
-                  color: item.color ? item.color : 'black',
-                  fontSize: 12
+                  color: item.color ? item.color : 'black'
                 }}>{item.title}</Text>
                 {item.arrowRight && <FontAwesomeIcon 
                   icon={faChevronRight} 
@@ -50,11 +80,12 @@ class TermsAndConditions extends Component {
               </TouchableOpacity>
             ))}
           </View>
-      </ScrollView>
+        </Modal>
+      </View>
     );
   }
-}
 
+}
 const mapStateToProps = state => ({ state: state });
 
 const mapDispatchToProps = dispatch => {
@@ -67,4 +98,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(TermsAndConditions);
+)(Options);

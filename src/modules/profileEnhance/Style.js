@@ -4,7 +4,6 @@ export default {
   headerStyle: {
     backgroundColor: Color.white,
     borderBottomColor: Color.gray,
-    borderBottomWidth: 0.5,
-    height: 80,
+    borderBottomWidth: 0.5
   },
 };
