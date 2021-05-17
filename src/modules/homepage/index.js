@@ -56,7 +56,7 @@ let response = {
                           {
                             response.data.map(el => {
                                 return (
-                                    <Card item={el}/>
+                                    <Card item={el} page={'homepage'}/>
                                 )
                             })
                           }

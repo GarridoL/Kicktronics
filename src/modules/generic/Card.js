@@ -15,7 +15,7 @@ class Card extends Component {
           <View>
             <Image source={item.url} style={{width: '60%', height: '70%', marginLeft: 'auto', marginRight: 'auto', resizeMode: 'stretch'}}/>
             <Text>{item.title}</Text>
-            <Text>{item.price}</Text>
+            <Text>{this.props.page === 'homepage' ? item.price : item.date}</Text>
           </View>
         </TouchableOpacity>
       )
