@@ -70,7 +70,7 @@ class ProfileEnhance extends Component {
               }}>
               <TouchableOpacity
                 style={[Style.btnWithShadow, {backgroundColor: Color.primary}]}
-                onPress={() => this.props.navigation.navigate('homePageStack')}>
+                onPress={() => this.props.navigation.navigate('editProfileStack')}>
                 <Text style={{fontWeight: 'bold'}}>EDIT PROFILE</Text>
               </TouchableOpacity>
             </View>

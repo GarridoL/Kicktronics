@@ -5,7 +5,7 @@ import ForgotPassword from 'modules/basics/rounded/ForgotPassword';
 import Register from 'modules/basics/Register';
 import Drawer from './Drawer';
 import DashboardStack from 'modules/dashboard/DashboardDrawer.js';
-import EditProfileStack from 'modules/profile/editProfile/editProfileDrawer.js';
+// import EditProfileStack from 'modules/profile/editProfile/editProfileDrawer.js';
 import AddPaymentStack from 'modules/payment/add/AddPaymentDrawer.js';
 import TermsAndConditionsStack from 'modules/termsAndConditions/TermsAndConditionsDrawer.js';
 import PaymentMethodsStack from 'modules/payment/PaymentMethodsDrawer.js';
@@ -14,6 +14,8 @@ import GuidelinesStack from 'modules/guidelines/GuidelinesDrawer';
 import LandingPage from 'modules/landing/index.js';
 import HomePage from 'modules/homepage/HomeDrawer.js';
 import TermsStack from 'modules/terms/drawer.js'
+import EditProfileStack from 'modules/profileEnhance/EditProfileDrawer.js'
+import ProfileFormStack from 'modules/profileEnhance/ProfileFormDrawer.js'
 
 
 // Landing stack
@@ -100,6 +102,8 @@ const PrimaryNav = createStackNavigator(
     privacyStack: { screen: PrivacyStack},
     guidelinesStack: { screen: GuidelinesStack},
     termsStack: { screen: TermsStack},
+    profileFormStack: { screen: ProfileFormStack},
+    // editProfileStack: { screen: TermsStack},
   },
   {
     // Default config for all screens
