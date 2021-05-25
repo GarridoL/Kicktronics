@@ -16,8 +16,11 @@ import HomePage from 'modules/homepage/HomeDrawer.js';
 import TermsStack from 'modules/terms/drawer.js'
 import EditProfileStack from 'modules/profileEnhance/EditProfileDrawer.js'
 import ProfileFormStack from 'modules/profileEnhance/ProfileFormDrawer.js'
-
-
+import DetailsStack from 'modules/products/DetailsDrawer.js'
+import SizesStack from 'modules/products/SizesDrawer.js'
+import AvailableSizeStack from 'modules/products/availableSizes/AvailableSizeDrawer.js'
+import CreateOfferStack from 'modules/products/availableSizes/OfferDrawer.js'
+import CheckoutStack from 'modules/products/checkout/CheckoutDrawer.js'
 // Landing stack
 const LandingPageStack = createStackNavigator(
   {
@@ -103,6 +106,11 @@ const PrimaryNav = createStackNavigator(
     guidelinesStack: { screen: GuidelinesStack},
     termsStack: { screen: TermsStack},
     profileFormStack: { screen: ProfileFormStack},
+    detailsStack: { screen: DetailsStack},
+    sizesStack: { screen: SizesStack},
+    availablSizeStack: { screen: AvailableSizeStack},
+    createOfferStack: { screen: CreateOfferStack},
+    checkoutStack: { screen: CheckoutStack},
     // editProfileStack: { screen: TermsStack},
   },
   {

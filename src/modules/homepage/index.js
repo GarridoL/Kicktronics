@@ -22,13 +22,13 @@ const height = Math.round(Dimensions.get('window').height);
 
 let response = {
     data: [
-        {'id': 1, 'url': require('assets/logo.png'), 'price': '$200', 'title': 'Adidas'},
-        {'id': 2, 'url': require('assets/logo2.png'), 'price': '$200', 'title': 'Nike'},
-        {'id': 3, 'url': require('assets/logo1.png'), 'price': '$200', 'title': 'Rebook'},
-        {'id': 4, 'url': require('assets/logo.png'), 'price': '$200', 'title': 'World Balance'},
-        {'id': 5, 'url': require('assets/logo2.png'), 'price': '$200', 'title': 'New Balance'},
-        {'id': 6, 'url': require('assets/logo1.png'), 'price': '$200', 'title': 'Snicker'},
-        {'id': 7, 'url': require('assets/logo.png'), 'price': '$200', 'title': 'Robetson'}
+        {'id': 1, 'url': require('assets/logo.png'), 'price': '$200', 'title': 'Adidas', 'status': 'OUT OF STOCK', 'model': 'DFS434', 'category': 'Men'},
+        {'id': 2, 'url': require('assets/logo2.png'), 'price': '$200', 'title': 'Nike', 'status': 'OUT OF STOCK', 'model': 'DFS434', 'category': 'Men'},
+        {'id': 3, 'url': require('assets/logo1.png'), 'price': '$200', 'title': 'Rebook', 'status': 'OUT OF STOCK', 'model': 'DFS434', 'category': 'Women'},
+        {'id': 4, 'url': require('assets/logo.png'), 'price': '$200', 'title': 'World Balance', 'status': 'OUT OF STOCK', 'model': 'DFS434', 'category': 'Men'},
+        {'id': 5, 'url': require('assets/logo2.png'), 'price': '$200', 'title': 'New Balance', 'status': 'OUT OF STOCK', 'model': 'DFS434', 'category': 'Women'},
+        {'id': 6, 'url': require('assets/logo1.png'), 'price': '$200', 'title': 'Snicker', 'status': 'OUT OF STOCK', 'model': 'DFS434', 'category': 'Men'},
+        {'id': 7, 'url': require('assets/logo.png'), 'price': '$200', 'title': 'Robetson', 'status': 'OUT OF STOCK', 'model': 'DFS434', 'category': 'Women'}
     ]
 }
 
@@ -56,7 +56,7 @@ let response = {
                           {
                             response.data.map(el => {
                                 return (
-                                    <Card item={el} page={'homepage'}/>
+                                    <Card item={el} page={'homepage'} route={'detailsStack'} navigation={this.props.navigation}/>
                                 )
                             })
                           }
