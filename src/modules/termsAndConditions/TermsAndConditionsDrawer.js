@@ -14,6 +14,7 @@ class HeaderOptions extends Component {
   }
   back = () => {
     this.props.navigationProps.pop()
+    this.props.setModalOptions(true)
   };
   render() {
     const { theme } = this.props.state;
@@ -24,7 +25,6 @@ class HeaderOptions extends Component {
           <FontAwesomeIcon
             icon={faChevronLeft}
             size={BasicStyles.headerBackIconSize}
-            style={{color: theme ? theme.primary : Color.primary }}
           />
         </TouchableOpacity>
       </View>
@@ -32,19 +32,22 @@ class HeaderOptions extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({state: state});
+const mapStateToProps = (state) => ({ state: state });
 
 const mapDispatchToProps = (dispatch) => {
-  const {actions} = require('@redux');
-  return {};
+  const { actions } = require('@redux');
+  return {
+    setModalOptions: (show) => { dispatch(actions.setModalOptions(show)) }
+  };
 };
+
 let HeaderOptionsConnect  = connect(mapStateToProps, mapDispatchToProps)(HeaderOptions);
 
 const TermsAndConditionsStack = createStackNavigator({
   termsAndConditionsScreen: {
     screen: TermsAndConditions,
     navigationOptions: ({navigation}) => ({
-      title: 'Terms And Conditions',
+      title: 'Terms and Conditions',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
       ...BasicStyles.headerDrawerStyle
     }),

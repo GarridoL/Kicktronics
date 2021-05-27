@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { createStackNavigator } from 'react-navigation-stack';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faQrcode, faBars } from '@fortawesome/free-solid-svg-icons';
-import Dashboard from 'modules/dashboard';
+import { faQrcode, faBars, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import Dashboard from 'modules/dashboard/index.js';
 import { NavigationActions } from 'react-navigation';
-import { BasicStyles } from 'common';
-
+import { BasicStyles, Color } from 'common';
+import {connect} from 'react-redux';
+import Style from './Style.js'
 class HeaderOptions extends Component {
   constructor(props) {
     super(props);
@@ -16,20 +17,18 @@ class HeaderOptions extends Component {
   }
 
   back = () => {
-    const navigateAction = NavigationActions.navigate({
-      routeName: 'Dashboard',
-    });
-    this.props.navigationProps.dispatch(navigateAction);
+    this.props.navigationProps.pop()
   };
   render() {
+    const { theme } = this.props.state;
     return (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{flexDirection: 'row'}}>
         <TouchableOpacity onPress={this.back.bind(this)}>
           {/*Donute Button Image */}
           <FontAwesomeIcon
-            icon={faBars}
-            size={BasicStyles.iconSize}
-            style={BasicStyles.iconStyle}
+            icon={faChevronLeft}
+            size={BasicStyles.headerBackIconSize}
+            style={{color: theme ? theme.primary : Color.primary }}
           />
         </TouchableOpacity>
       </View>
@@ -37,25 +36,28 @@ class HeaderOptions extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({state: state});
+
+const mapDispatchToProps = (dispatch) => {
+  const {actions} = require('@redux');
+  return {};
+};
+let HeaderOptionsConnect  = connect(mapStateToProps, mapDispatchToProps)(HeaderOptions);
 
 const DashboardStack = createStackNavigator({
-  dashboardScreen: {
+  termsAndConditionsScreen: {
     screen: Dashboard,
-    navigationOptions: ({ navigation }) => ({    
+    navigationOptions: ({navigation}) => ({
       title: 'Dashboard',
-      headerLeft: <HeaderOptions navigationProps={navigation} />,
-      drawerLabel: 'Dashboard',
-      headerStyle: {
-        backgroundColor: 'white',
-      },
-      headerTintColor: '#4c4c4c',
-      headerRight: (
-        // <View style={{marginRight: 40, paddingRight: 8}}>
-        <FontAwesomeIcon icon={faQrcode} size={20} style={{ color: 'black', marginRight: 40 }}/>
-        // </View>
-      ),
+      headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
+      headerTitleStyle: { marginLeft: 'auto', marginRight: '40%'},
+      headerStyle: Style.headerStyle
+      // headerTransparent:true,
     }),
   },
 });
 
-export default DashboardStack;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(DashboardStack);

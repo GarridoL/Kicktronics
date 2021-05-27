@@ -1,31 +1,41 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import Data from 'services/Data';
-import {Helper, Color} from 'common';
-import {Routes} from 'common';
+import { Helper, Color } from 'common';
+import { Routes } from 'common';
 import Api from '../services/api';
 
 const types = {
   LOGOUT: 'LOGOUT',
   LOGIN: 'LOGIN',
-  UPDATE_USER: 'UPDATE_USER'
+  UPDATE_USER: 'UPDATE_USER',
+  SET_ACTIVE_HEADER: 'SET_ACTIVE_HEADER',
+  SET_MODAL_OPTIONS: 'SET_MODAL_OPTIONS'
 };
 
 export const actions = {
   login: (user, token) => {
-    return {type: types.LOGIN, user, token};
+    return { type: types.LOGIN, user, token };
   },
   logout() {
-    return {type: types.LOGOUT};
+    return { type: types.LOGOUT };
   },
   updateUser: (user) => {
-    return {type: types.UPDATE_USER, user};
+    return { type: types.UPDATE_USER, user };
+  },
+  setUpdateHeader: (active) => {
+    return { type: types.SET_ACTIVE_HEADER, active };
+  },
+  setModalOptions: (show) => {
+    return { type: types.SET_MODAL_OPTIONS, show }
   }
 };
 
 const date = new Date()
 const initialState = {
   token: null,
-  user: null
+  user: null,
+  activeHeader: false,
+  show: false
 };
 
 storeData = async (key, value) => {
@@ -45,7 +55,10 @@ storeData = async (key, value) => {
 // }
 
 const reducer = (state = initialState, action) => {
-  const {type, user, token} = action;
+  const { type, user, token } = action;
+  const { active } = action
+  const { show } = action;
+  
   switch (type) {
     case types.LOGOUT:
       // storeData('token', '');
@@ -56,14 +69,24 @@ const reducer = (state = initialState, action) => {
       storeData('token', token);
       console.log('LOGIN', true);
       Data.setToken(token);
-      return {...state, user, token};
+      return { ...state, user, token };
     case types.UPDATE_USER:
       return {
         ...state,
         user,
       }
+    case types.SET_ACTIVE_HEADER:
+      return {
+        ...state,
+        activeHeader: active,
+      }
+    case types.SET_MODAL_OPTIONS:
+      return {
+        ...state,
+        show
+      }
     default:
-      return {...state, nav: state.nav};
+      return { ...state, nav: state.nav };
   }
 };
 export default reducer;

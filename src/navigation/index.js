@@ -1,16 +1,48 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import Login from 'modules/basics/rounded/LoginWithFingerPrint';
+import Login from 'modules/basics/Login';
 import FingerprintScan from '../modules/basics/FingerPrintScanner';
 import ForgotPassword from 'modules/basics/rounded/ForgotPassword';
-import Register from 'modules/basics/rounded/Register';
+import Register from 'modules/basics/Register';
 import Drawer from './Drawer';
 import DashboardStack from 'modules/dashboard/DashboardDrawer.js';
-import EditProfileStack from 'modules/profile/editProfile/editProfileDrawer.js';
+// import EditProfileStack from 'modules/profile/editProfile/editProfileDrawer.js';
 import AddPaymentStack from 'modules/payment/add/AddPaymentDrawer.js';
 import TermsAndConditionsStack from 'modules/termsAndConditions/TermsAndConditionsDrawer.js';
 import PaymentMethodsStack from 'modules/payment/PaymentMethodsDrawer.js';
 import PrivacyStack from 'modules/privacy/Drawer';
 import GuidelinesStack from 'modules/guidelines/GuidelinesDrawer';
+import LandingPage from 'modules/landing/index.js';
+import HomePage from 'modules/homepage/HomeDrawer.js';
+import TermsStack from 'modules/terms/drawer.js'
+import EditProfileStack from 'modules/profileEnhance/EditProfileDrawer.js'
+import ProfileFormStack from 'modules/profileEnhance/ProfileFormDrawer.js'
+import DetailsStack from 'modules/products/DetailsDrawer.js'
+import SizesStack from 'modules/products/SizesDrawer.js'
+import AvailableSizeStack from 'modules/products/availableSizes/AvailableSizeDrawer.js'
+import CreateOfferStack from 'modules/products/availableSizes/OfferDrawer.js'
+import CheckoutStack from 'modules/products/checkout/CheckoutDrawer.js'
+// Landing stack
+const LandingPageStack = createStackNavigator(
+  {
+    loginScreen: { screen: LandingPage },
+  },
+  {
+    headerMode: 'none',
+    navigationOptions: {},
+  },
+);
+
+// HomePage stack
+const HomePageStack = createStackNavigator(
+  {
+    loginScreen: { screen: HomePage },
+  },
+  {
+    headerMode: 'none',
+    navigationOptions: {},
+  },
+);
+
 
 // login stack
 const LoginStack = createStackNavigator(
@@ -58,6 +90,8 @@ const RegisterStack = createStackNavigator(
 // Manifest of possible screens
 const PrimaryNav = createStackNavigator(
   {
+    landingPageStack: {screen: LandingPageStack},
+    homePageStack: {screen: HomePageStack},
     loginStack: {screen: LoginStack},
     fingerPrintStack: {screen: FingerPrintStack},
     forgotPasswordStack: {screen: ForgotPasswordStack},
@@ -70,12 +104,20 @@ const PrimaryNav = createStackNavigator(
     paymentMethodsStack: { screen: PaymentMethodsStack },
     privacyStack: { screen: PrivacyStack},
     guidelinesStack: { screen: GuidelinesStack},
+    termsStack: { screen: TermsStack},
+    profileFormStack: { screen: ProfileFormStack},
+    detailsStack: { screen: DetailsStack},
+    sizesStack: { screen: SizesStack},
+    availablSizeStack: { screen: AvailableSizeStack},
+    createOfferStack: { screen: CreateOfferStack},
+    checkoutStack: { screen: CheckoutStack},
+    // editProfileStack: { screen: TermsStack},
   },
   {
     // Default config for all screens
     headerMode: 'none',
-    title: 'Main',
-    initialRouteName: 'loginStack',
+    title: 'Main Menu',
+    initialRouteName: 'landingPageStack',
   },
 );
 

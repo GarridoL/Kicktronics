@@ -1,33 +1,22 @@
-let PRODUCTION_BACKEND_URL = 'https://api.payhiram.ph/public/increment/v1'
-let SANDBOX_BACKEND_URL = 'https://api.payhiram.ph/public/increment/v1'
-let DEV_BACKEND_URL = 'http://192.168.254.105/payhirambe/public/increment/v1'
-let BACKEND_URL = null
-switch(1){
-  case 0:{
-    BACKEND_URL = DEV_BACKEND_URL
-  }
-  break
-  case 1:{
-    BACKEND_URL = SANDBOX_BACKEND_URL
-  }
-  break
-  case 2:{
-    BACKEND_URL = PRODUCTION_BACKEND_URL
-  }
-  break
-}
-export default{
+let LIVE_BACKEND_URL = 'https://api.traceag.com.au/api/public/increment/v1';
+let DEV_BACKEND_URL = 'http://localhost/trackr/api/server.php/increment/v1';
+let isDev = false;
+let BACKEND_URL = isDev ? DEV_BACKEND_URL : LIVE_BACKEND_URL;
+export default {
   IS_DEV: BACKEND_URL,
   BACKEND_URL: BACKEND_URL,
-  TEST: true,
+  TEST: false,
   GOOGLE: {
-    API_KEY: 'AIzaSyAxT8ShiwiI7AUlmRdmDp5Wg_QtaGMpTjg'
+    API_KEY: 'AIzaSyDrRdwTpaLeofZGsv39i0OuMpDLiIQJIIk',
   },
   PUSHER: {
-    appId: 'your_pusher_id',
-    key: 'your_pusher_key',
-    secret: 'your_pusher_secret',
+    appId: '1079335',
+    key: 'fcc878c9ae95355398a8',
+    secret: 'd5e212f122e005bd91ef',
     cluster: 'ap1',
-    encrypted: true
-  }
-}
+    encrypted: true,
+  },
+  versionChecker: 'store',
+  retrieveDataFlag: 1,
+  NFC_TEST: true
+};
