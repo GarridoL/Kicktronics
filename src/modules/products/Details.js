@@ -29,29 +29,30 @@ class Details extends Component {
 
     render() {
         const { details } = this.props.navigation.state.params
+        // console.log('DETAILS', details['images'][0]);
         return (
             <View>
                 <ScrollView>
                     <View style={{ height: height }}>
                         <View style={[Style.cardStyleWithShadow]}>
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Image source={details.url} style={{ width: 200, height: 200 }}></Image>
-                                <Text style={{ fontSize: 20, color: 'gray' }}>{details.title}</Text>
+                                <Image source={{uri: details?.picture}} style={{ width: 200, height: 200 }}></Image>
+                                <Text style={{ fontSize: 20, color: 'gray' }}>{details.name}</Text>
                             </View>
                             <View style={{ flexDirection: 'row-reverse', marginTop: '10%' }}>
                                 <View style={[Style.circledBorder, { marginLeft: 'auto' }]}>
-                                    <Text style={{ fontSize: 12, fontWeight: 'bold' }}>{details.status}</Text>
+                                    <Text style={{ fontSize: 12, fontWeight: 'bold' }}>USED OUT OF STOCK</Text>
                                 </View>
                                 <View style={[Style.circledBorder, { marginLeft: 'auto' }]}>
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('sizesStack', {routeName: 'sizes'})}>
                                         <Text style={{ fontSize: 12, fontWeight: 'bold' }}>NEW FROM</Text>
-                                        <Text>{details.price}</Text>
+                                        <Text>{details.lowestPrice}</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ marginRight: '10%', justifyContent: 'center', }}>
-                                    <Text>{details.model}</Text>
                                     <Text>{details.category}</Text>
-                                    <Text>Addidas Plain White</Text>
+                                    <Text>{details.type}</Text>
+                                    <Text>{details.brand} {details.colorCategory}</Text>
                                 </View>
                             </View>
                         </View>

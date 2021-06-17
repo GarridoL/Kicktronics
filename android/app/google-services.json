@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "381933322706",
+    "firebase_url": "https://kicktronics-28008.firebaseio.com",
+    "project_id": "kicktronics-28008",
+    "storage_bucket": "kicktronics-28008.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:381933322706:android:33b1abbc068316f3",
+        "android_client_info": {
+          "package_name": "com.kicktronics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "381933322706-cp5s577bh4a9up03g6as5tnpu0t09k0m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kicktronics.kicktronics",
+            "certificate_hash": "16cb2f6c7725cd733fea85cc1b9f7e8b30947f7b"
+          }
+        },
+        {
+          "client_id": "381933322706-49r22cfbeqg4p2mtttvha7c9fnn23m18.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYi5FC6VwZ1IFoY7dbtiOEAGFguQ8SL4Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "381933322706-49r22cfbeqg4p2mtttvha7c9fnn23m18.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "381933322706-1bakkbtj27tr3i5d3gj74gmtcv7tlhtk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "kicktronics.Kicktronics"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
