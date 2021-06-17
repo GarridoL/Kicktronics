@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Image,
@@ -12,8 +12,8 @@ import {
   Dimensions,
 } from 'react-native';
 import Style from './Style.js';
-import {connect} from 'react-redux';
-import {Routes, Color, Helper, BasicStyles} from 'common';
+import { connect } from 'react-redux';
+import { Routes, Color, Helper, BasicStyles } from 'common';
 import SubHeader from 'modules/generic/SubHeader.js';
 import Footer from 'modules/generic/Footer.js';
 import Card from 'modules/generic/Card.js';
@@ -31,7 +31,6 @@ class ProfileEnhance extends Component {
   }
 
   componentDidMount() {
-    console.log('[PROPS:] ', this.props.navigation.state.params);
   }
 
   render() {
@@ -53,13 +52,13 @@ class ProfileEnhance extends Component {
                 justifyContent: 'space-between',
                 marginTop: 20,
               }}>
-              <View style={{width: '50%', alignItems: 'center'}}>
-                <Text style={{fontSize: 30}}>0</Text>
-                <Text style={{fontSize: 20, color: 'gray'}}>OFFER</Text>
+              <View style={{ width: '50%', alignItems: 'center' }}>
+                <Text style={{ fontSize: 30 }}>0</Text>
+                <Text style={{ fontSize: 20, color: 'gray' }}>OFFER</Text>
               </View>
-              <View style={{width: '50%', alignItems: 'center'}}>
-                <Text style={{fontSize: 30}}>0</Text>
-                <Text style={{fontSize: 20, color: 'gray'}}>SELL</Text>
+              <View style={{ width: '50%', alignItems: 'center' }}>
+                <Text style={{ fontSize: 30 }}>0</Text>
+                <Text style={{ fontSize: 20, color: 'gray' }}>SELL</Text>
               </View>
             </View>
             <View
@@ -69,9 +68,9 @@ class ProfileEnhance extends Component {
                 marginTop: 20,
               }}>
               <TouchableOpacity
-                style={[Style.btnWithShadow, {backgroundColor: Color.primary}]}
+                style={[Style.btnWithShadow, { backgroundColor: Color.primary }]}
                 onPress={() => this.props.navigation.navigate('editProfileStack')}>
-                <Text style={{fontWeight: 'bold'}}>EDIT PROFILE</Text>
+                <Text style={{ fontWeight: 'bold' }}>EDIT PROFILE</Text>
               </TouchableOpacity>
             </View>
             <View
@@ -80,19 +79,19 @@ class ProfileEnhance extends Component {
                 justifyContent: 'space-between',
                 marginTop: 20,
               }}>
-                  <View style={{width: '50%',}}>
-                      <TouchableOpacity style={[Style.btnWithShadow, {width: 150, height: 150}]}>
-                          <FontAwesomeIcon icon={faCartPlus} size={40} color={'gray'}></FontAwesomeIcon>
-                          <Text style={{width: '50%', marginTop: 20, color: 'gray'}}>PURCHASE HISTORY</Text>
-                      </TouchableOpacity>
-                  </View>
-                  <View >
-                      <TouchableOpacity style={[Style.btnWithShadow, {width: 150,  height: 150}]}>
-                          <FontAwesomeIcon icon={faHeadset} size={40} color={'gray'}></FontAwesomeIcon>
-                          <Text style={{width: '50%', marginTop: 20, color: 'gray'}}>HELP & HISTORY</Text>
-                      </TouchableOpacity>
-                  </View>
+              <View style={{ width: '50%', }}>
+                <TouchableOpacity style={[Style.btnWithShadow, { width: 150, height: 150 }]}>
+                  <FontAwesomeIcon icon={faCartPlus} size={40} color={'gray'}></FontAwesomeIcon>
+                  <Text style={{ width: '50%', marginTop: 20, color: 'gray' }}>PURCHASE HISTORY</Text>
+                </TouchableOpacity>
               </View>
+              <View >
+                <TouchableOpacity style={[Style.btnWithShadow, { width: 150, height: 150 }]}>
+                  <FontAwesomeIcon icon={faHeadset} size={40} color={'gray'}></FontAwesomeIcon>
+                  <Text style={{ width: '50%', marginTop: 20, color: 'gray' }}>HELP & HISTORY</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </ScrollView>
         <ModalOptions navigation={this.props.navigation}></ModalOptions>
@@ -101,4 +100,15 @@ class ProfileEnhance extends Component {
     );
   }
 }
-export default ProfileEnhance;
+
+const mapStateToProps = state => ({ state: state });
+
+const mapDispatchToProps = dispatch => {
+  const { actions } = require('@redux');
+  return {
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProfileEnhance);

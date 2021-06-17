@@ -42,7 +42,7 @@ const ProfileStack = createStackNavigator({
   termsAndConditionsScreen: {
     screen: ProfileEnhance,
     navigationOptions: ({ navigation }) => ({
-      title: 'Lalaine',
+      title: navigation.state.params.user !== null ? navigation.state.params.user.username : "User",
       headerRight: <HeaderOptionsConnect navigationProps={navigation} />,
       headerTitleStyle: { marginLeft: '45%'},
       headerStyle: Style.headerStyle

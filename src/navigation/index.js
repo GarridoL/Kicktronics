@@ -1,8 +1,8 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import Login from 'modules/basics/Login';
+import Login from 'modules/basics/firebase/Login';
 import FingerprintScan from '../modules/basics/FingerPrintScanner';
 import ForgotPassword from 'modules/basics/rounded/ForgotPassword';
-import Register from 'modules/basics/Register';
+import Register from 'modules/basics/firebase/Register';
 import Drawer from './Drawer';
 import DashboardStack from 'modules/dashboard/DashboardDrawer.js';
 // import EditProfileStack from 'modules/profile/editProfile/editProfileDrawer.js';
