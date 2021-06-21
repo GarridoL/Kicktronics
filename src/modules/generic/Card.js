@@ -11,7 +11,8 @@ class Card extends Component {
   constructor(props) {
     super(props)
     this.state={
-      images: null
+      images: null,
+      months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     }
   }
 
@@ -47,7 +48,9 @@ class Card extends Component {
   render() {
     const { item } = this.props
     let image = item?.picture
-    console.log('[IMAGES]', image);
+    let date = item.release !== undefined || item.release !==  '' ?  new Date(item.release) : null
+    let dateRelease = date !== null ? this.state.months[date.getMonth()] + ' ' + date.getDate() : null;
+    console.log(dateRelease);
     return (
       <TouchableOpacity style={[Style.cardStyleWithShadow, { marginBottom: 13, width: '48%', height: '25%', paddingTop: 10 }, this.props.style]} onPress={() => this.redirect(this.props.route, item)}>
         <View>
@@ -57,7 +60,7 @@ class Card extends Component {
 
           {/* <Text>{item?.images?.length > 0 ? item?.images[0] : this?.images}</Text> */}
           <Text>{item.brand}</Text>
-          <Text>{this.props.page === 'homepage' ? "$ " + item.lowestPrice : item.release}</Text>
+          <Text>{this.props.page === 'homepage' ? "$ " + item.lowestPrice : dateRelease}</Text>
         </View>
       </TouchableOpacity>
     )

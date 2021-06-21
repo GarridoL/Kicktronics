@@ -9,7 +9,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   BackHandler,
-  Dimensions
+  Dimensions,
+  StatusBar 
 } from 'react-native';
 import Style from './Style.js'
 import { connect } from 'react-redux'
@@ -21,6 +22,7 @@ import { Spinner } from 'components';
 import firebaseApi from 'services/api/firebaseApi'
 import firestore from '@react-native-firebase/firestore';
 import RNFetchBlob from "rn-fetch-blob";
+import { SafeAreaView } from 'react-native';
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
 
@@ -41,7 +43,7 @@ class HomePage extends Component {
     super(props);
     this.state = {
       isLoading: false,
-      data: []
+      data: [],
     };
   }
   componentDidMount() {
@@ -67,7 +69,7 @@ class HomePage extends Component {
               .then(resp => {
                 // the image path you can use it directly with Image component
                 imagePath = resp.path();
-                return resp.readFile("base64");
+                return resp.readFile("base64");   
               })
               .then(base64Data => {
                 // here's base64 encoded image
@@ -91,21 +93,18 @@ class HomePage extends Component {
   onError(error) {
     console.error(error);
   }
+
   render() {
     const { data } = this.state
     return (
-      <View>
+      <SafeAreaView>
         <SubHeader navigation={this.props.navigation} index={1} />
         <ScrollView
-          showsVerticalScrollIndicator={false}>
-          <View style={{
-            height: height,
-            // flex: 1,
-            backgroundColor: '#F5F5F5',
-            paddingLeft: 10,
-            paddingRight: 10
-          }}>
-            <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingTop: 50, paddingBottom: 90 }}>
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{flexGrow: 1}}
+          onContentSizeChange={this.onContentSizeChange}
+          >
+            <View style={{height:  height, flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingTop: 50, paddingBottom: 100,  backgroundColor: '#F5F5F5', }}>
               {
                 data.map(el => {
                   return (
@@ -114,7 +113,6 @@ class HomePage extends Component {
                 })
               }
             </View>
-          </View>
         </ScrollView>
         {
           this.state.isLoading === true && (
@@ -122,7 +120,7 @@ class HomePage extends Component {
           )
         }
         <Footer navigation={this.props.navigation} index={1} />
-      </View>
+      </SafeAreaView>
     )
   }
 }
