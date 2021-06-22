@@ -32,8 +32,8 @@ class Details extends Component {
         // console.log('DETAILS', details['images'][0]);
         return (
             <View>
-                <ScrollView>
-                    <View style={{ height: height, backgroundColor: Color.lightGray, }}>
+                <ScrollView style={{backgroundColor: Color.lightGray}}>
+                    <View style={{ minHeight: height, backgroundColor: Color.lightGray, marginBottom: details['images'] !== null && details['images'].length > 0 ? (details['images'].length + 70) + '%' : height}}>
                         <View style={{ backgroundColor: 'white', height: '45%' }}>
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 <Image source={{ uri: details?.picture }} style={{ width: 200, height: 200 }}></Image>
@@ -56,7 +56,7 @@ class Details extends Component {
                                 </View>
                             </View>
                         </View>
-                        <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 150,}}>
+                        <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 150}}>
                             {
                                 details && details.images && details.images.length > 0 && details.images.map(el => (
                                     <TouchableOpacity style={[Style.cardStyleWithShadow, { marginBottom: 13, width: '48%', height: '70%', paddingTop: 10 }, this.props.style]} onPress={() => this.redirect(this.props.route, item)}>

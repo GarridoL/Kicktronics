@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
   BackHandler,
   Dimensions,
-  StatusBar 
+  StatusBar
 } from 'react-native';
 import Style from './Style.js'
 import { connect } from 'react-redux'
@@ -59,27 +59,6 @@ class HomePage extends Component {
         querySnapshot.forEach(documentSnapshot => {
           this.setState({ isLoading: false })
           let tempData = this.state.data.concat(documentSnapshot.data())
-          tempData.map(el => {
-            const fs = RNFetchBlob.fs
-            RNFetchBlob.config({
-              fileCache: true
-            })
-              .fetch("GET", el.picture)
-              // the image is now dowloaded to device's storage
-              .then(resp => {
-                // the image path you can use it directly with Image component
-                imagePath = resp.path();
-                return resp.readFile("base64");   
-              })
-              .then(base64Data => {
-                // here's base64 encoded image
-                console.log(base64Data);
-                // this.setState({ images: base64Data })
-                el.picture = base64Data
-                // remove the file from storage
-                return fs.unlink(imagePath);
-              });
-          })
           this.setState({ data: tempData })
           // console.log('Sneakers:================ ', documentSnapshot.id, documentSnapshot.data());
         });
@@ -97,14 +76,14 @@ class HomePage extends Component {
   render() {
     const { data } = this.state
     return (
-      <SafeAreaView>
+      <SafeAreaView style={{backgroundColor: '#F5F5F5'}}>
         <SubHeader navigation={this.props.navigation} index={1} />
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{flexGrow: 1}}
-          onContentSizeChange={this.onContentSizeChange}
-          >
-            <View style={{height:  height, flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingTop: 50, paddingBottom: 100,  backgroundColor: '#F5F5F5', }}>
+        // ref={scrollRef} 
+        >
+          <View style={{marginBottom: data.length > 0 ? (data.length + 70) + '%' : height}}>
+            <View style={{ height: height, flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingTop: 50}}>
               {
                 data.map(el => {
                   return (
@@ -113,6 +92,7 @@ class HomePage extends Component {
                 })
               }
             </View>
+          </View>
         </ScrollView>
         {
           this.state.isLoading === true && (

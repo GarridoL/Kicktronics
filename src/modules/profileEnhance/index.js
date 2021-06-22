@@ -17,6 +17,7 @@ import { Routes, Color, Helper, BasicStyles } from 'common';
 import SubHeader from 'modules/generic/SubHeader.js';
 import Footer from 'modules/generic/Footer.js';
 import Card from 'modules/generic/Card.js';
+import { Spinner } from 'components';
 import ModalOptions from 'modules/modal/options.js';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCartPlus, faHeadset } from '@fortawesome/free-solid-svg-icons';
@@ -27,11 +28,11 @@ const height = Math.round(Dimensions.get('window').height);
 class ProfileEnhance extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+    };
   }
 
-  componentDidMount() {
-  }
+
 
   render() {
     return (
@@ -86,9 +87,9 @@ class ProfileEnhance extends Component {
                 </TouchableOpacity>
               </View>
               <View >
-                <TouchableOpacity style={[Style.btnWithShadow, { width: 150, height: 150 }]}>
+                <TouchableOpacity style={[Style.btnWithShadow, { width: 150, height: 150 }]} onPress={() => this.props.navigation.navigate('supportStack')}>
                   <FontAwesomeIcon icon={faHeadset} size={40} color={'gray'}></FontAwesomeIcon>
-                  <Text style={{ width: '50%', marginTop: 20, color: 'gray' }}>HELP & HISTORY</Text>
+                  <Text style={{ width: '50%', marginTop: 20, color: 'gray' }}>HELP & SUPPORT</Text>
                 </TouchableOpacity>
               </View>
             </View>
