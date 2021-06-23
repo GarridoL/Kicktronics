@@ -6,12 +6,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faImage } from '@fortawesome/free-regular-svg-icons';
 import RNFetchBlob from "rn-fetch-blob";
+import { isInteger } from 'formik';
 
 class Card extends Component {
   constructor(props) {
     super(props)
-    this.state={
-      images: null
+    this.state = {
+      images: null,
+      months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     }
   }
 
@@ -47,19 +49,33 @@ class Card extends Component {
   render() {
     const { item } = this.props
     let image = item?.picture
-    console.log('[IMAGES]', image);
+    let date = item.release == '' || isInteger(item.release) || isNaN(item.release) ? null : new Date(item.release);
+    let dateRelease = date !== null ? this.state.months[date.getMonth()] + ' ' + date.getDate() : 'No Date';
     return (
-      <TouchableOpacity style={[Style.cardStyleWithShadow, { marginBottom: 13, width: '48%', height: '25%', paddingTop: 10 }, this.props.style]} onPress={() => this.redirect(this.props.route, item)}>
-        <View>
-          {/* <Text>{image}</Text> */}
-          <Image source={{ uri: image}} 
-            style={{ width: '60%', height: '70%', marginLeft: 'auto', marginRight: 'auto', resizeMode: 'stretch' }} />
+      <View  style={[Style.cardStyleWithShadow, { marginBottom: 13, width: '48%', height: '25%', paddingTop: 10 }, this.props.style]}>
+        <TouchableOpacity onPress={() => this.redirect(this.props.route, item)}>
+          {
+            this.props.page !== 'accessories' ? (
+              <View>
+                {/* <Text>{image}</Text> */}
+                <Image source={{ uri: image }}
+                  style={{ width: '60%', height: '70%', marginLeft: 'auto', marginRight: 'auto', resizeMode: 'stretch' }} />
 
-          {/* <Text>{item?.images?.length > 0 ? item?.images[0] : this?.images}</Text> */}
-          <Text>{item.brand}</Text>
-          <Text>{this.props.page === 'homepage' ? "$ " + item.lowestPrice : item.release}</Text>
-        </View>
-      </TouchableOpacity>
+                {/* <Text>{item?.images?.length > 0 ? item?.images[0] : this?.images}</Text> */}
+                <Text>{item.brand}</Text>
+                <Text>{this.props.page === 'homepage' ? "$ " + item.lowestPrice : dateRelease}</Text>
+              </View>
+            ) : (
+              <View>
+                <Image source={{ uri: image }}
+                  style={{ width: '60%', height: '70%', marginLeft: 'auto', marginRight: 'auto', resizeMode: 'stretch' }} />
+                <Text>{item.brand}</Text>
+                <Text>{"$ " + item.price}</Text>
+              </View>
+            )
+          }
+        </TouchableOpacity>
+      </View>
     )
   }
 }

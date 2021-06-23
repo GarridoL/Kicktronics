@@ -32,33 +32,46 @@ class Details extends Component {
         // console.log('DETAILS', details['images'][0]);
         return (
             <View>
-                <ScrollView>
-                    <View style={{ height: height }}>
-                        <View style={[Style.cardStyleWithShadow]}>
+                <ScrollView style={{backgroundColor: Color.lightGray}}>
+                    <View style={{ minHeight: height, backgroundColor: Color.lightGray, marginBottom: details['images'] !== null && details['images'].length > 0 ? (details['images'].length + 70) + '%' : height}}>
+                        <View style={{ backgroundColor: 'white', height: '45%' }}>
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                <Image source={{uri: details?.picture}} style={{ width: 200, height: 200 }}></Image>
+                                <Image source={{ uri: details?.picture }} style={{ width: 200, height: 200 }}></Image>
                                 <Text style={{ fontSize: 20, color: 'gray' }}>{details.name}</Text>
                             </View>
                             <View style={{ flexDirection: 'row-reverse', marginTop: '10%' }}>
-                                <View style={[Style.circledBorder, { marginLeft: 'auto' }]}>
-                                    <Text style={{ fontSize: 12, fontWeight: 'bold' }}>USED OUT OF STOCK</Text>
+                                <View style={[Style.circledBorder, { marginLeft: 'auto', position: 'absolute', top: 30, left: 20 }]}>
+                                    <Text style={{ fontSize: 12, color: Color.gray }}>Used out of stock</Text>
                                 </View>
-                                <View style={[Style.circledBorder, { marginLeft: 'auto' }]}>
-                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('sizesStack', {routeName: 'sizes'})}>
-                                        <Text style={{ fontSize: 12, fontWeight: 'bold' }}>NEW FROM</Text>
-                                        <Text>{details.lowestPrice}</Text>
+                                <View style={[Style.circledBorder, { marginLeft: 'auto', position: 'absolute', top: 0, left: 110 }]}>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('sizesStack', { routeName: 'sizes' })}>
+                                        <Text style={{ fontSize: 12, color: Color.gray }}>NEW FROM</Text>
+                                        <Text style={{ fontSize: 12, color: Color.gray }}>{details.lowestPrice}</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <View style={{ marginRight: '10%', justifyContent: 'center', }}>
-                                    <Text>{details.category}</Text>
-                                    <Text>{details.type}</Text>
+                                <View style={{ marginRight: '10%', justifyContent: 'center', position: 'absolute', right: 0, top: 30, }}>
+                                    <Text style={{ marginBottom: 10 }}>{details.type}</Text>
+                                    <Text style={{ marginBottom: 10 }}>{details.category}</Text>
                                     <Text>{details.brand} {details.colorCategory}</Text>
                                 </View>
                             </View>
                         </View>
+                        <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', marginTop: 150}}>
+                            {
+                                details && details.images && details.images.length > 0 && details.images.map(el => (
+                                    <TouchableOpacity style={[Style.cardStyleWithShadow, { marginBottom: 13, width: '48%', height: '70%', paddingTop: 10 }, this.props.style]} onPress={() => this.redirect(this.props.route, item)}>
+                                        <View>
+                                            {/* <Text>{image}</Text> */}
+                                            <Image source={{ uri: el }}
+                                                style={{ width: '60%', height: '100%', marginLeft: 'auto', marginRight: 'auto', resizeMode: 'stretch' }} />
+                                        </View>
+                                    </TouchableOpacity>
+                                ))
+                            }
+                        </View>
                     </View>
                 </ScrollView>
-                <TouchableOpacity style={[Style.btnWithShadow, { backgroundColor: Color.secondary, position: 'absolute', bottom: 0, width: '100%' }]}>
+                <TouchableOpacity style={[Style.btnWithShadow, { position: 'absolute', bottom: -20, width: '100%' }]} onPress={() => this.props.navigation.navigate('sellStack')}>
                     <Text style={{ color: Color.primary }}>SELL</Text>
                 </TouchableOpacity>
             </View>

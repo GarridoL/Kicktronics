@@ -9,7 +9,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   BackHandler,
-  Dimensions
+  Dimensions,
+  StatusBar
 } from 'react-native';
 import Style from './Style.js'
 import { connect } from 'react-redux'
@@ -21,6 +22,7 @@ import { Spinner } from 'components';
 import firebaseApi from 'services/api/firebaseApi'
 import firestore from '@react-native-firebase/firestore';
 import RNFetchBlob from "rn-fetch-blob";
+import { SafeAreaView } from 'react-native';
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
 
@@ -41,7 +43,7 @@ class HomePage extends Component {
     super(props);
     this.state = {
       isLoading: false,
-      data: []
+      data: [],
     };
   }
   componentDidMount() {
@@ -57,27 +59,6 @@ class HomePage extends Component {
         querySnapshot.forEach(documentSnapshot => {
           this.setState({ isLoading: false })
           let tempData = this.state.data.concat(documentSnapshot.data())
-          tempData.map(el => {
-            const fs = RNFetchBlob.fs
-            RNFetchBlob.config({
-              fileCache: true
-            })
-              .fetch("GET", el.picture)
-              // the image is now dowloaded to device's storage
-              .then(resp => {
-                // the image path you can use it directly with Image component
-                imagePath = resp.path();
-                return resp.readFile("base64");
-              })
-              .then(base64Data => {
-                // here's base64 encoded image
-                console.log(base64Data);
-                // this.setState({ images: base64Data })
-                el.picture = base64Data
-                // remove the file from storage
-                return fs.unlink(imagePath);
-              });
-          })
           this.setState({ data: tempData })
           // console.log('Sneakers:================ ', documentSnapshot.id, documentSnapshot.data());
         });
@@ -91,21 +72,18 @@ class HomePage extends Component {
   onError(error) {
     console.error(error);
   }
+
   render() {
     const { data } = this.state
     return (
-      <View>
+      <SafeAreaView style={{backgroundColor: '#F5F5F5'}}>
         <SubHeader navigation={this.props.navigation} index={1} />
         <ScrollView
-          showsVerticalScrollIndicator={false}>
-          <View style={{
-            height: height,
-            // flex: 1,
-            backgroundColor: '#F5F5F5',
-            paddingLeft: 10,
-            paddingRight: 10
-          }}>
-            <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingTop: 50, paddingBottom: 90 }}>
+          showsVerticalScrollIndicator={false}
+        // ref={scrollRef} 
+        >
+          <View style={{marginBottom: data.length > 0 ? (data.length + 70) + '%' : height}}>
+            <View style={{ height: height, flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingTop: 50}}>
               {
                 data.map(el => {
                   return (
@@ -122,7 +100,7 @@ class HomePage extends Component {
           )
         }
         <Footer navigation={this.props.navigation} index={1} />
-      </View>
+      </SafeAreaView>
     )
   }
 }
