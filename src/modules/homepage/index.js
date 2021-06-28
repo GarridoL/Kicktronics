@@ -22,7 +22,7 @@ const height = Math.round(Dimensions.get('window').height);
 
 let response = {
     data: [
-        {'id': 1, 'url': require('assets/logo.png'), 'price': '$200', 'title': 'Adidas', 'status': 'OUT OF STOCK', 'model': 'DFS434', 'category': 'Men'},
+        {'id': 1, 'url': require('assets/logo.png'), 'price': '$200.00', 'title': 'Adidas', 'status': 'OUT OF STOCK', 'model': 'DFS434', 'category': 'Men'},
         {'id': 2, 'url': require('assets/logo2.png'), 'price': '$200', 'title': 'Nike', 'status': 'OUT OF STOCK', 'model': 'DFS434', 'category': 'Men'},
         {'id': 3, 'url': require('assets/logo1.png'), 'price': '$200', 'title': 'Rebook', 'status': 'OUT OF STOCK', 'model': 'DFS434', 'category': 'Women'},
         {'id': 4, 'url': require('assets/logo.png'), 'price': '$200', 'title': 'World Balance', 'status': 'OUT OF STOCK', 'model': 'DFS434', 'category': 'Men'},
