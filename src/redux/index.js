@@ -9,7 +9,8 @@ const types = {
   LOGIN: 'LOGIN',
   UPDATE_USER: 'UPDATE_USER',
   SET_ACTIVE_HEADER: 'SET_ACTIVE_HEADER',
-  SET_MODAL_OPTIONS: 'SET_MODAL_OPTIONS'
+  SET_MODAL_OPTIONS: 'SET_MODAL_OPTIONS',
+  SET_ACTIVE_INDEX: 'SET_ACTIVE_INDEX'
 };
 
 export const actions = {
@@ -27,6 +28,9 @@ export const actions = {
   },
   setModalOptions: (show) => {
     return { type: types.SET_MODAL_OPTIONS, show }
+  },
+  setActiveIndex: (index) => {
+    return {type: types.SET_ACTIVE_INDEX, index}
   }
 };
 
@@ -35,7 +39,9 @@ const initialState = {
   token: null,
   user: null,
   activeHeader: false,
-  show: false
+  show: false,
+  activeIndex: 0,
+  index: 0
 };
 
 storeData = async (key, value) => {
@@ -56,7 +62,7 @@ storeData = async (key, value) => {
 
 const reducer = (state = initialState, action) => {
   const { type, user, token } = action;
-  const { active } = action
+  const { active, index } = action
   const { show } = action;
   
   switch (type) {
@@ -84,6 +90,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         show
+      }
+    case types.SET_ACTIVE_INDEX:
+      return {
+        ...state,
+        index
+        // activeIndex: index
       }
     default:
       return { ...state, nav: state.nav };

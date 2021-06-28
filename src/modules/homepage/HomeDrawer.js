@@ -46,8 +46,8 @@ const HomePageStack = createStackNavigator({
     navigationOptions: ({navigation}) => ({
       title: 'BUY NOW',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
-      headerTitleStyle:{marginLeft: -30, zIndex: 1000},
-      headerStyle:{elevation: 0},
+      headerTitleStyle:{marginLeft: -30, zIndex: 1000, fontSize: 15},
+      headerStyle:{elevation: 0, height: 30},
       // headerTransparent:true,
       ...BasicStyles.drawerHeader1
     }),
