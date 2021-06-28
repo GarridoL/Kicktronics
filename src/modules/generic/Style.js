@@ -6,9 +6,9 @@ export default {
         size: 35
     },
     cardStyleWithShadow: {
-        ...BasicStyles.standardShadow,
+        // ...BasicStyles.standardShadow,
         borderRadius: BasicStyles.standardBorderRadius,
-        backgroundColor: Color.primary,
+        // backgroundColor: Color.primary,
         padding: 10
     }
 }
