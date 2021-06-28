@@ -20,7 +20,8 @@ import Card from 'modules/generic/Card.js';
 import { Spinner } from 'components';
 import ModalOptions from 'modules/modal/options.js';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faCartPlus, faHeadset } from '@fortawesome/free-solid-svg-icons';
+import { faCartPlus, faCheck, faHeadset, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
+import { ClipPath } from 'react-native-svg';
 
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
@@ -69,9 +70,20 @@ class ProfileEnhance extends Component {
                 marginTop: 20,
               }}>
               <TouchableOpacity
-                style={[Style.btnWithShadow, { backgroundColor: Color.primary }]}
+                style={{ 
+                  backgroundColor: Color.white,
+                  borderColor: 'gray',
+                  borderWidth: 1,
+                  height: 40,
+                  width: width - 80,
+                  marginBottom: 20,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  backgroundColor: 'white',
+                  borderRadius: 5,
+                }}
                 onPress={() => this.props.navigation.navigate('editProfileStack')}>
-                <Text style={{ fontWeight: 'bold' }}>EDIT PROFILE</Text>
+                <Text>EDIT PROFILE</Text>
               </TouchableOpacity>
             </View>
             <View
@@ -81,15 +93,16 @@ class ProfileEnhance extends Component {
                 marginTop: 20,
               }}>
               <View style={{ width: '50%', }}>
-                <TouchableOpacity style={[Style.btnWithShadow, { width: 150, height: 150 }]}>
-                  <FontAwesomeIcon icon={faCartPlus} size={40} color={'gray'}></FontAwesomeIcon>
-                  <Text style={{ width: '50%', marginTop: 20, color: 'gray' }}>PURCHASE HISTORY</Text>
+                <TouchableOpacity style={[Style.btnWithShadow, { width: 150, height: 150 }]} onPress={() => this.props.navigation.navigate('purchaseStack')}>
+                  <FontAwesomeIcon icon={faShoppingBag} size={40} color={'gray'}></FontAwesomeIcon>
+                  <FontAwesomeIcon style={{marginTop: -17}} icon={faCheck} size={13} color={'white'}></FontAwesomeIcon>
+                  <Text style={{ width: '50%', marginTop: 20, color: 'gray', textAlign: 'center' }}>PURCHASE HISTORY</Text>
                 </TouchableOpacity>
               </View>
               <View >
                 <TouchableOpacity style={[Style.btnWithShadow, { width: 150, height: 150 }]} onPress={() => this.props.navigation.navigate('supportStack')}>
                   <FontAwesomeIcon icon={faHeadset} size={40} color={'gray'}></FontAwesomeIcon>
-                  <Text style={{ width: '50%', marginTop: 20, color: 'gray' }}>HELP & SUPPORT</Text>
+                  <Text style={{ width: '50%', marginTop: 20, color: 'gray', textAlign: 'center' }}>HELP & SUPPORT</Text>
                 </TouchableOpacity>
               </View>
             </View>

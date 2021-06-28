@@ -19,7 +19,7 @@ import SubHeader from 'modules/generic/SubHeader.js'
 import Footer from 'modules/generic/Footer.js'
 import Card from 'modules/generic/Card.js'
 import { Spinner } from 'components';
-import firebaseApi from 'services/api/firebaseApi'
+// import firebaseApi from 'services/api/firebaseApi'
 import firestore from '@react-native-firebase/firestore';
 import RNFetchBlob from "rn-fetch-blob";
 import { SafeAreaView } from 'react-native';

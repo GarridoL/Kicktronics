@@ -14,7 +14,6 @@ import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { Color, BasicStyles } from 'common';
 import Style from './Style.js'
 import { connect } from 'react-redux';
-import { black } from 'react-native-paper/lib/typescript/styles/colors';
 const width = Math.round(Dimensions.get('window').width);
 
 class SubHeader extends Component {
