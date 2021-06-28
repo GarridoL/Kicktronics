@@ -23,6 +23,7 @@ import CreateOfferStack from 'modules/products/availableSizes/OfferDrawer.js'
 import CheckoutStack from 'modules/products/checkout/CheckoutDrawer.js'
 import Sell from 'modules/products/sell/index.js'
 import SupportStack from 'modules/helpSupport/indexDrawer.js' 
+import PurchaseHistory from 'modules/purchase/Drawer.js'
 // Landing stack
 const LandingPageStack = createStackNavigator(
   {
@@ -115,6 +116,7 @@ const PrimaryNav = createStackNavigator(
     checkoutStack: { screen: CheckoutStack},
     sellStack: { screen: Sell},
     supportStack: { screen: SupportStack},
+    purchaseStack: { screen: PurchaseHistory},
     // editProfileStack: { screen: TermsStack},
   },
   {
