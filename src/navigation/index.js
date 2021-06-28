@@ -1,8 +1,8 @@
 import { createStackNavigator } from 'react-navigation-stack';
-import Login from 'modules/basics/Login';
+import Login from 'modules/basics/firebase/Login';
 import FingerprintScan from '../modules/basics/FingerPrintScanner';
 import ForgotPassword from 'modules/basics/rounded/ForgotPassword';
-import Register from 'modules/basics/Register';
+import Register from 'modules/basics/firebase/Register';
 import Drawer from './Drawer';
 import DashboardStack from 'modules/dashboard/DashboardDrawer.js';
 // import EditProfileStack from 'modules/profile/editProfile/editProfileDrawer.js';
@@ -21,6 +21,8 @@ import SizesStack from 'modules/products/SizesDrawer.js'
 import AvailableSizeStack from 'modules/products/availableSizes/AvailableSizeDrawer.js'
 import CreateOfferStack from 'modules/products/availableSizes/OfferDrawer.js'
 import CheckoutStack from 'modules/products/checkout/CheckoutDrawer.js'
+import Sell from 'modules/products/sell/index.js'
+import SupportStack from 'modules/helpSupport/indexDrawer.js' 
 // Landing stack
 const LandingPageStack = createStackNavigator(
   {
@@ -111,6 +113,8 @@ const PrimaryNav = createStackNavigator(
     availablSizeStack: { screen: AvailableSizeStack},
     createOfferStack: { screen: CreateOfferStack},
     checkoutStack: { screen: CheckoutStack},
+    sellStack: { screen: Sell},
+    supportStack: { screen: SupportStack},
     // editProfileStack: { screen: TermsStack},
   },
   {

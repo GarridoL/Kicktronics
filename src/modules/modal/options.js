@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import styles from './optionsStyle.js';
+import auth from '@react-native-firebase/auth'
+import firestore from '@react-native-firebase/firestore';
 
 const height = Math.round(Dimensions.get('window').height);
 const width = Math.round(Dimensions.get('window').width);
@@ -28,6 +30,12 @@ class Options extends Component {
       }})
     }
     this.props.setModalOptions(false);
+  }
+  logout(){
+    const { logout } = this.props;
+    auth().signOut()
+    logout();
+    this.props.navigation.navigate('loginStack')
   }
 
   render() {
@@ -55,29 +63,60 @@ class Options extends Component {
             paddingLeft: 15
           }}>
             {Helper.options.map((item, index) => (
-              <TouchableOpacity style={{
-                paddingTop: 20,
-                paddingBottom: 20,
-                borderBottomColor: Color.gray,
-                borderBottomWidth: .3,
-                flexDirection: 'row'
-              }}
-              onPress={() => {
-                this.redirect(item.route)
-              }}>
-                <Text style={{
-                  color: item.color ? item.color : 'black'
-                }}>{item.title}</Text>
-                {item.arrowRight && <FontAwesomeIcon 
-                  icon={faChevronRight} 
-                  style={{
-                    position: 'absolute',
-                    right: 10,
-                    top: 15,
-                    color: Color.gray
-                  }}
-                  size={15}></FontAwesomeIcon>}
-              </TouchableOpacity>
+              <View>
+                {
+                  item.title === 'Logout' ? (
+                    <TouchableOpacity style={{
+                      paddingTop: 20,
+                      paddingBottom: 20,
+                      borderBottomColor: Color.gray,
+                      borderBottomWidth: .3,
+                      flexDirection: 'row'
+                    }}
+                    onPress={() => {
+                      this.logout()
+                    }}>
+                      <Text style={{
+                        color: item.color ? item.color : 'black'
+                      }}>{item.title}</Text>
+                      {item.arrowRight && <FontAwesomeIcon 
+                        icon={faChevronRight} 
+                        style={{
+                          position: 'absolute',
+                          right: 10,
+                          top: 15,
+                          color: Color.gray
+                        }}
+                        size={15}></FontAwesomeIcon>}
+                    </TouchableOpacity>
+                  ) : 
+                  (
+                    <TouchableOpacity style={{
+                      paddingTop: 20,
+                      paddingBottom: 20,
+                      borderBottomColor: Color.gray,
+                      borderBottomWidth: .3,
+                      flexDirection: 'row'
+                    }}
+                    onPress={() => {
+                      this.redirect(item.route)
+                    }}>
+                      <Text style={{
+                        color: item.color ? item.color : 'black'
+                      }}>{item.title}</Text>
+                      {item.arrowRight && <FontAwesomeIcon 
+                        icon={faChevronRight} 
+                        style={{
+                          position: 'absolute',
+                          right: 10,
+                          top: 15,
+                          color: Color.gray
+                        }}
+                        size={15}></FontAwesomeIcon>}
+                    </TouchableOpacity>
+                  )
+                }
+                </View>
             ))}
           </View>
         </Modal>
@@ -91,7 +130,8 @@ const mapStateToProps = state => ({ state: state });
 const mapDispatchToProps = dispatch => {
   const { actions } = require('@redux');
   return {
-    setModalOptions: (show) => { dispatch(actions.setModalOptions(show)) }
+    setModalOptions: (show) => { dispatch(actions.setModalOptions(show)) },
+    logout: () => dispatch(actions.logout()),
   };
 };
 

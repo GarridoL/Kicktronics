@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Image,
@@ -14,16 +14,14 @@ import {
   Pressable,
   TextInput,
 } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import Style from './Style.js';
-import {connect} from 'react-redux';
-import {Routes, Color, Helper, BasicStyles} from 'common';
-import SubHeader from 'modules/generic/SubHeader.js';
-import Footer from 'modules/generic/Footer.js';
-import Card from 'modules/generic/Card.js';
-import ModalOptions from 'modules/modal/options.js';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faCartPlus, faHeadset} from '@fortawesome/free-solid-svg-icons';
+import { Spinner } from 'components';
+import { connect } from 'react-redux';
+import { Routes, Color, Helper, BasicStyles } from 'common';
 import PasswordWithIcon from 'components/InputField/Password.js';
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth'
 
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
@@ -35,34 +33,81 @@ class EditProfile extends Component {
       showModal: false,
       password: null,
       modalType: null,
+      user: null,
+      isLoading: false,
+      error: null
     };
   }
 
+
+  componentDidMount() {
+    this.focusListener = this.props.navigation.addListener('didFocus', () => {
+      this.retrieveData();
+    })
+    this.retrieveData()
+  }
+
+  async retrieveData() {
+    const { isLoading } = this.state
+    const token = await AsyncStorage.getItem(Helper.APP_NAME + 'uid');
+    if (token != null) {
+      this.setState({ isLoading: true });
+      firestore().collection('users')
+        .where('customerId', '==', token)
+        .get()
+        .then(response => {
+          response.forEach(async el => {
+            this.setState({ isLoading: false });
+            this.setState({ user: el.data() })
+          })
+        })
+    }
+  }
+
   redirect(route, formType) {
-    const {showModal} = this.state;
+    const { showModal } = this.state;
     if (formType === 'Email' || formType === 'Password') {
       this.setModalVisible(!showModal);
     }
     this.props.navigation.navigate(route, {
       formType: formType,
+      user: this.state.user
     });
-    // this.props.navigation.navigate(route, {
-    //   formType: formType,
-    // });
   }
 
   setModalVisible = async (visible, formType) => {
-      console.log(formType);
-      if(formType === 'Email'){
-        await this.setState({modalType: 'Email'});
-      }else{
-        await this.setState({modalType: 'Password'});
-      }
-    await this.setState({showModal: visible});
+    console.log(formType);
+    if (formType === 'Email') {
+      await this.setState({ modalType: 'Email' });
+    } else {
+      await this.setState({ modalType: 'Password' });
+    }
+    await this.setState({ showModal: visible });
   };
 
+  validatePassword(formType){
+    // const { modalType, user, showModal } = this.state;
+    this.setState({isLoading: true})
+    this.reAuthenticate(this.state.password).then(() => {
+      this.setState({isLoading: false, error: null})
+      this.redirect('profileFormStack', formType)
+    }).catch(error => {
+      console.log('-->>', error.message);
+      this.setState({error: error.message})
+    })
+  }
+
+  reAuthenticate(currentPass){
+    let user = auth().currentUser;
+    let cred = auth.EmailAuthProvider.credential(
+      user.email, currentPass
+    )
+    return user.reauthenticateWithCredential(cred);
+  }
+
+
   renderModal(formType) {
-    const {showModal} = this.state;
+    const { showModal } = this.state;
     return (
       <View style={[Style.centeredView]}>
         <Modal
@@ -72,9 +117,10 @@ class EditProfile extends Component {
           onRequestClose={() => {
             this.setModalVisible(!showModal);
           }}>
-          <View style={Style.centeredView}>
+          <View style={[Style.centeredView, {backgroundColor: 'rgba(0,0,0, 0.4)'}]}>
             <View style={Style.modalView}>
-              <View style={{width: width}}>
+              <Text style={{color: Color.danger}}>{this.state.error}</Text>
+              <View style={{ width: width }}>
                 <PasswordWithIcon
                   onTyping={input =>
                     this.setState({
@@ -98,7 +144,7 @@ class EditProfile extends Component {
                     },
                   ]}
                   onPress={() => this.setModalVisible(!showModal)}>
-                  <Text style={{fontWeight: 'bold'}}>Cancel</Text>
+                  <Text style={{ fontWeight: 'bold' }}>Cancel</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[
@@ -108,8 +154,8 @@ class EditProfile extends Component {
                       width: 100,
                     },
                   ]}
-                  onPress={() => this.redirect('profileFormStack', formType)}>
-                  <Text style={{fontWeight: 'bold', color: 'white'}}>
+                  onPress={() => this.validatePassword(formType)}>
+                  <Text style={{ fontWeight: 'bold', color: 'white' }}>
                     Continue
                   </Text>
                 </TouchableOpacity>
@@ -122,7 +168,8 @@ class EditProfile extends Component {
   }
 
   render() {
-    const {modalType} = this.state;
+    const { modalType, user, showModal } = this.state;
+    console.log('*****', user);
     return (
       <View>
         <TouchableOpacity
@@ -137,7 +184,7 @@ class EditProfile extends Component {
               },
             ]}>
             <Text>USERNAME</Text>
-            <Text>Patrick</Text>
+            <Text>{user !== null ? user.username: '----'}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
@@ -152,7 +199,7 @@ class EditProfile extends Component {
               },
             ]}>
             <Text>FULL NAME</Text>
-            <Text>Patrick</Text>
+            <Text>{user !== null ? user.firstName + ' '+ user.lastName: '----'}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.setModalVisible(true, 'Email')}>
@@ -166,10 +213,10 @@ class EditProfile extends Component {
               },
             ]}>
             <Text>EMAIL</Text>
-            <Text>johnpatrick.cabia-an@student.passerellesnumeriques.org</Text>
+            <Text>{user !== null ? user.email: '----'}</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity  onPress={() => this.redirect('profileFormStack', 'Phone')}>
+        <TouchableOpacity onPress={() => this.redirect('profileFormStack', 'Phone')}>
           <View
             style={[
               Style.cardWithShadow,
@@ -180,7 +227,7 @@ class EditProfile extends Component {
               },
             ]}>
             <Text>PHONE</Text>
-            <Text>Patrick</Text>
+            <Text>{user !== null ? user.phone || '-----' : '----'}</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.setModalVisible(true, 'Password')}>
@@ -197,7 +244,14 @@ class EditProfile extends Component {
             <Text>Change Password</Text>
           </View>
         </TouchableOpacity>
+
+
         {this.renderModal(modalType)}
+        {
+          this.state.isLoading === true && (
+            <Spinner mode="overlay" />
+          )
+        }
       </View>
     );
   }

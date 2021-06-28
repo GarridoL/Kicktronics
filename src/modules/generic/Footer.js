@@ -3,12 +3,12 @@ import { View, TouchableOpacity, Text, Platform, Dimensions, Share, TextInput } 
 import { NavigationActions, StackActions } from 'react-navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import {
-  faHome,
-  faSearch,
-  faChartLine,
-  faUser,
-  faEllipsisH,
-  faTag
+    faHome,
+    faSearch,
+    faChartLine,
+    faUser,
+    faEllipsisH,
+    faTag
 } from '@fortawesome/free-solid-svg-icons';
 import { faCopy } from '@fortawesome/free-regular-svg-icons';
 import { Color, BasicStyles } from 'common';
@@ -21,49 +21,56 @@ class SubHeader extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          search: null
+            search: null
         }
     }
     navigateToScreen = async (route) => {
+        const {user} = this.props.state
+        console.log('=============', user);
         const navigateAction = NavigationActions.navigate({
-          routeName: 'drawerStack',
-          action: StackActions.reset({
-            index: 0,
-            key: null,
-            actions: [
-                NavigationActions.navigate({routeName: route, params: {
-                  initialRouteName: route,
-                  index: 0
-                }}),
-            ]
-          })
+            routeName: 'drawerStack',
+            action: StackActions.reset({
+                index: 0,
+                key: null,
+                actions: [
+                    NavigationActions.navigate({
+                        routeName: route, params: {
+                            initialRouteName: route,
+                            index: 0,
+                            user: user
+                        }
+                    }),
+                ]
+            })
         });
         this.props.navigation.dispatch(navigateAction);
     }
 
-    render(){
-        const {index} = this.props
-        return(
-            <View style={{flexDirection: 'row', justifyContent: 'center', width: width, position: 'absolute', bottom: 0, backgroundColor: 'white', zIndex: 1000, 
-             paddingTop: 10, paddingBottom: 5}}>
-                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
+    render() {
+        const { index } = this.props
+        return (
+            <View style={{
+                flexDirection: 'row', justifyContent: 'center', width: width, position: 'absolute', bottom: 0, backgroundColor: 'white', zIndex: 1000,
+                paddingTop: 10, paddingBottom: 5
+            }}>
+                <View style={{ flex: 13, flexDirection: 'column', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('HomePage')}>
-                        <FontAwesomeIcon icon={faHome} color={index === 1 ? Color.secondary : Color.gray} size={30}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faHome} color={index === 1 ? Color.secondary : Color.gray} size={22}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
+                <View style={{ flex: 13, flexDirection: 'column', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('Search')}>
-                        <FontAwesomeIcon icon={faSearch} color={index === 2 ? Color.secondary : Color.gray} size={30}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faSearch} color={index === 2 ? Color.secondary : Color.gray} size={22}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
+                <View style={{ flex: 13, flexDirection: 'column', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('Dashboard')}>
-                        <FontAwesomeIcon icon={faTag} color={index === 3 ? Color.secondary : Color.gray} size={30}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faTag} color={index === 3 ? Color.secondary : Color.gray} size={22}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
-                <View style={{flex: 13, flexDirection: 'column', alignItems: 'center'}}>
+                <View style={{ flex: 13, flexDirection: 'column', alignItems: 'center' }}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('Profile')}>
-                        <FontAwesomeIcon icon={faUser} color={index === 4 ? Color.secondary : Color.gray} size={30}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faUser} color={index === 4 ? Color.secondary : Color.gray} size={22}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -71,4 +78,14 @@ class SubHeader extends Component {
     }
 }
 
-export default SubHeader;
+const mapStateToProps = state => ({ state: state });
+
+const mapDispatchToProps = dispatch => {
+    const { actions } = require('@redux');
+    return {
+    };
+};
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(SubHeader);

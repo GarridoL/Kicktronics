@@ -58,22 +58,22 @@ class SubHeader extends Component {
             <View style={{flex: 1, flexDirection: 'row', width: width, position: 'absolute', backgroundColor: 'white', zIndex: 1000, paddingTop: 10}}>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center',  borderBottomColor: index == 1 ? 'black' : '', borderBottomWidth: index == 1 ? 4 : null}}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('HomePage', 1)}>
-                        <FontAwesomeIcon icon={faShoppingCart} size={30} color={index === 1 ? Color.secondary : Color.gray}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faShoppingCart} size={22} color={index === 1 ? Color.secondary : Color.gray}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center', borderBottomColor: index == 2 ? 'black' : '', borderBottomWidth: index == 2 ? 4 : null}}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('Demands', 2)}>
-                        <FontAwesomeIcon icon={faFire} size={30} color={index === 2 ? Color.secondary : Color.gray}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faFire} size={22} color={index === 2 ? Color.secondary : Color.gray}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center', borderBottomColor: index == 3 ? 'black' : '', borderBottomWidth: index == 3 ? 4 : null}}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('Upcoming', 3)}>
-                        <FontAwesomeIcon icon={faCalendarAlt} size={30} color={index === 3 ? Color.secondary : Color.gray}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faCalendarAlt} size={22} color={index === 3 ? Color.secondary : Color.gray}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
                 <View style={{flex: 13, flexDirection: 'column', alignItems: 'center', borderBottomColor: index == 4 ? 'black' : '', borderBottomWidth: index == 4 ? 4 : null}}>
                     <TouchableOpacity onPress={() => this.navigateToScreen('Accesories', 4)}>
-                        <FontAwesomeIcon icon={faEllipsisH} size={30} color={index === 4 ? Color.secondary : Color.gray}></FontAwesomeIcon>
+                        <FontAwesomeIcon icon={faEllipsisH} size={22} color={index === 4 ? Color.secondary : Color.gray}></FontAwesomeIcon>
                     </TouchableOpacity>
                 </View>
             </View>
