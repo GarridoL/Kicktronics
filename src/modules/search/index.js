@@ -20,6 +20,7 @@ import Footer from 'modules/generic/Footer.js';
 import { Spinner } from 'components';
 import Card from 'modules/generic/Card.js';
 import firestore from '@react-native-firebase/firestore';
+
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
 
@@ -77,24 +78,17 @@ class Search extends Component {
       isLoading: false,
       selectedType: null,
       selectedSize: null,
+      selectedBrand: null,
+      title: null,
+      type: null,
+      size: null,
       data: []
     };
   }
 
   componentDidMount() {
     this.sizeCounter();
-    this.selectBrand(null);
-    // firestore()
-    //   .collection('sizes').doc('1').collection('owns')
-    //   .where('ts', '==', 1520972100144)
-    //   .limit(2)
-    //   .get()
-    //   .then(querySnapshot => {
-    //     console.log(',,,,,,,,,,,,,,', querySnapshot.docs);
-    //     querySnapshot.forEach(documentSnapshot => {
-    //       console.log('===========', documentSnapshot.id);
-    //     });
-    //   });
+    this.selectBrand();
   }
 
   async sizeCounter() {
@@ -107,7 +101,22 @@ class Search extends Component {
     // console.log(this.state.sizes);
   }
 
-  selectBrand(title, type, size) {
+  async searchSize(selectedSize){
+    console.log('[SIZE]', selectedSize);
+    const {size} = this.state
+    this.setState({size: selectedSize})
+    firestore().collection('sizes').doc(selectedSize).get()
+      .then((doc) => {
+        console.log('============', doc.data());
+        if(doc.exists){
+          console.log('====', doc.data());
+        }
+      })
+  }
+
+  selectBrand() {
+    const {title, type, size} = this.state
+    console.log(title, type);
     this.setState({ isLoading: true })
     if(title !== null && type !== null && size !== null){
       firestore()
@@ -128,7 +137,7 @@ class Search extends Component {
         });
       });
     }
-    if(title === null){
+    if(title === null && type === null){
       firestore()
       .collection('sneakers')
       .limit(10)
@@ -250,7 +259,7 @@ class Search extends Component {
                   ]}
                   mode={'dropdown'}
                   onValueChange={(itemValue, itemIndex) =>
-                    this.setState({ selectedSize: itemValue })
+                    this.searchSize(itemValue)
                   }>
                   {this.state.sizes.length > 0 &&
                     this.state.sizes.map((el, index) => {
@@ -266,7 +275,7 @@ class Search extends Component {
               style={{ position: 'absolute', top: 100 }}>
               <View style={{ flex: 1, flexDirection: 'row', marginTop: 80 }}>
                 <TouchableOpacity
-                  onPress={() => this.selectBrand(null)}
+                  onPress={() => this.setState({selectedBrand: null})}
                   style={[
                     Style.cardStyleWithShadow,
                     {
@@ -283,7 +292,7 @@ class Search extends Component {
                 {brands.map(el => {
                   return (
                     <TouchableOpacity
-                      onPress={() => this.selectBrand(el.title)}
+                      onPress={() => this.setState({selectedBrand: el.title})}
                       style={[
                         Style.cardStyleWithShadow,
                         {
@@ -292,6 +301,7 @@ class Search extends Component {
                           width: 150,
                           justifyContent: 'center',
                           alignItems: 'center',
+                          backgroundColor: this.state.selectedBrand === el.title ? 'gray' : ''
                         },
                       ]}>
                       <Image
