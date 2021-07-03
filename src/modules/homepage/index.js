@@ -77,7 +77,7 @@ class HomePage extends Component {
     const { data } = this.state
     return (
       <SafeAreaView style={{backgroundColor: '#F5F5F5'}}>
-        <SubHeader navigation={this.props.navigation} index={1} />
+        <SubHeader navigation={this.props.navigation} index={0} />
         <ScrollView
           showsVerticalScrollIndicator={false}
         // ref={scrollRef} 

@@ -51,6 +51,8 @@ class Card extends Component {
     let image = item?.picture
     let date = item.release == '' || isInteger(item.release) || isNaN(item.release) ? null : new Date(item.release);
     let dateRelease = date !== null ? this.state.months[date.getMonth()] + ' ' + date.getDate() : 'No Date';
+    let temp = image.split('?', (image.lastIndexOf('%2') + 1))
+    // console.log('[IMAGE]', temp[0] !== undefined ? temp[0].substr(temp[0].lastIndexOf('%2') + 1) : null);
     return (
       <View  style={[Style.cardStyleWithShadow, { marginBottom: 13, width: '48%', height: '25%', paddingTop: 10 }, this.props.style]}>
         <TouchableOpacity onPress={() => this.redirect(this.props.route, item)}>
