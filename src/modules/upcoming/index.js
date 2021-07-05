@@ -67,16 +67,18 @@ class Upcoming extends Component {
   render() {
     const { data } = this.state
     return (
-      <SafeAreaView style={{backgroundColor: '#F5F5F5'}}>
-        <SubHeader navigation={this.props.navigation} index={3} />
+      <SafeAreaView>
+        <SubHeader navigation={this.props.navigation} index={0} />
         <ScrollView
-          showsVerticalScrollIndicator={false}>
-          <View style={{ marginBottom: data.length > 0 ? (data.length + 70) + '%' : height }}>
-            <View style={{ height: height, flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingTop: 50, paddingBottom: 90 }}>
+          showsVerticalScrollIndicator={false}
+        // ref={scrollRef} 
+        >
+          <View style={{marginBottom: data.length > 0 ? (data.length + 90) + '%' : height}}>
+            <View style={{ height: height, flex: 1, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', paddingTop: 50}}>
               {
-                data.map(el => {
+                data.map((el, index) => {
                   return (
-                    <Card item={el} route={'detailsStack'} page={'upcoming'} navigation={this.props.navigation} />
+                    <Card item={el} key={index}  route={'detailsStack'} page={'upcoming'} navigation={this.props.navigation} />
                   )
                 })
               }

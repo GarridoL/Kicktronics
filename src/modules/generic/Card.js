@@ -54,24 +54,22 @@ class Card extends Component {
     let temp = image.split('?', (image.lastIndexOf('%2') + 1))
     // console.log('[IMAGE]', temp[0] !== undefined ? temp[0].substr(temp[0].lastIndexOf('%2') + 1) : null);
     return (
-      <View  style={[Style.cardStyleWithShadow, { marginBottom: 13, width: '48%', height: '25%', paddingTop: 10 }, this.props.style]}>
+      <View  style={[Style.cardStyleWithShadow, { marginBottom: '10%', width: '48%', height: 200, paddingTop: 10}, this.props.style]}>
         <TouchableOpacity onPress={() => this.redirect(this.props.route, item)}>
           {
             this.props.page !== 'accessories' ? (
               <View>
-                {/* <Text>{image}</Text> */}
-                <Image source={{ uri: image }}
-                  style={{ width: '60%', height: '70%', marginLeft: 'auto', marginRight: 'auto', resizeMode: 'stretch' }} />
-
-                {/* <Text>{item?.images?.length > 0 ? item?.images[0] : this?.images}</Text> */}
-                <Text>{item.brand}</Text>
+                <Text>From</Text>
                 <Text>{this.props.page === 'homepage' ? "$ " + item.lowestPrice : dateRelease}</Text>
+                <Image source={{ uri: image }}
+                  style={{ width: '60%', height: 100, marginLeft: 'auto', marginRight: 'auto', resizeMode: 'stretch' }} />
+                <Text>{item.name}</Text>
               </View>
             ) : (
               <View>
                 <Image source={{ uri: image }}
                   style={{ width: '60%', height: '70%', marginLeft: 'auto', marginRight: 'auto', resizeMode: 'stretch' }} />
-                <Text>{item.brand}</Text>
+                <Text>{item.name}</Text>
                 <Text>{"$ " + item.price}</Text>
               </View>
             )
