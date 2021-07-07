@@ -59,6 +59,7 @@ class HomePage extends Component {
 
         querySnapshot.forEach(documentSnapshot => {
           this.setState({ isLoading: false })
+          documentSnapshot.data()['document_id'] = documentSnapshot.id
           let tempData = this.state.data.concat(documentSnapshot.data())
           this.setState({ data: tempData })
           // console.log('Sneakers:================ ', documentSnapshot.id, documentSnapshot.data());
