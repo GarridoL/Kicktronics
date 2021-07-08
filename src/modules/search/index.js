@@ -103,14 +103,15 @@ class Search extends Component {
 
   async searchSize(selectedSize) {
     console.log('[SIZE]', selectedSize);
-    const { size } = this.state
-    this.setState({ size: selectedSize })
-    firestore().collection('sizes').doc(selectedSize).get()
+    const {size} = this.state
+    this.setState({size: selectedSize})
+    firestore().collection('sizes').doc(selectedSize).collection('owns').get()
       .then((doc) => {
-        console.log('============', doc.data());
-        if (doc.exists) {
-          console.log('====', doc.data());
-        }
+        console.log('---------', doc);
+        doc.docs.map(item => {
+          // let tempData = this.state.data.concat(item.data())
+          // this.setState({ data: tempData })
+        })
       })
   }
 
@@ -208,8 +209,8 @@ class Search extends Component {
             justifyContent: 'space-between',
             height: height,
           }}>
-          {data && data.length > 0 && data.map(el => {
-            return <Card item={el} style={{ height: '15%' }} />;
+          {data && data.length >0 && data.map((el, index) => {
+            return <Card key={index} item={el} style={{height: '15%'}} page={'search'}/>;
           })}
           {
             isLoading === true && (
@@ -231,7 +232,6 @@ class Search extends Component {
             style={{
               height: response.data ? null : height,
               // flex: 1,
-              backgroundColor: '#F5F5F5',
               paddingLeft: 10,
               paddingRight: 10,
               alignItems: 'center',
