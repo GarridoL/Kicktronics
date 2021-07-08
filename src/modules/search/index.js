@@ -101,55 +101,84 @@ class Search extends Component {
     // console.log(this.state.sizes);
   }
 
-  async searchSize(selectedSize){
+  async searchSize(selectedSize) {
     console.log('[SIZE]', selectedSize);
-    const {size} = this.state
-    this.setState({size: selectedSize})
+    const { size } = this.state
+    this.setState({ size: selectedSize })
     firestore().collection('sizes').doc(selectedSize).get()
       .then((doc) => {
         console.log('============', doc.data());
-        if(doc.exists){
+        if (doc.exists) {
           console.log('====', doc.data());
         }
       })
   }
 
+  search = async (selectedType, selectedSize, selectedBrand) => {
+    console.log(selectedType, selectedSize, selectedBrand, '----search--------');
+    this.setState({ isLoading: true })
+    await firestore()
+      .collection('sneakers')
+      // .where('brand', '==', selectedBrand)
+      // .where('type', '==', selectedType)
+      .get()
+      .then(querySnapshot1 => {
+        this.setState({ isLoading: false })
+        querySnapshot1.forEach(async documentSnapshot1 => {
+          this.setState({ isLoading: false })
+          console.log('brands: ', documentSnapshot1.id);
+          firestore()
+            .collection('owns')
+            .where('itemKey', '==', documentSnapshot1.id)
+            .get()
+            .then(querySnapshot => {
+              this.setState({ isLoading: true })
+              querySnapshot.forEach(async documentSnapshot => {
+                this.setState({ isLoading: false })
+                console.log('Key: ', documentSnapshot.data().itemKey);
+              });
+            });
+        });
+      });
+    console.log(selectedType, selectedSize, selectedBrand, 'testing-----');
+  }
+
   selectBrand() {
-    const {title, type, size} = this.state
+    const { title, type, size } = this.state
     console.log(title, type);
     this.setState({ isLoading: true })
-    if(title !== null && type !== null && size !== null){
+    if (title !== null && type !== null && size !== null) {
       firestore()
-      .collection('sneakers')
-      .where('search.' + title, '==', true)
-      .where('type', '==', type)
-      .limit(10)
-      .get()
-      .then(querySnapshot => {
-        console.log('Total sneakers: ', querySnapshot.size);
-        querySnapshot.forEach(async documentSnapshot => {
-          this.setState({ isLoading: false })
-          documentSnapshot.data().map(el => {
-            console.log('======================', el);
-          })
-          let tempData = this.state.data.concat(documentSnapshot.data())
-          await this.setState({ data: tempData })
+        .collection('sneakers')
+        .where('search.' + title, '==', true)
+        .where('type', '==', type)
+        .limit(10)
+        .get()
+        .then(querySnapshot => {
+          console.log('Total sneakers: ', querySnapshot.size);
+          querySnapshot.forEach(async documentSnapshot => {
+            this.setState({ isLoading: false })
+            documentSnapshot.data().map(el => {
+              console.log('======================', el);
+            })
+            let tempData = this.state.data.concat(documentSnapshot.data())
+            await this.setState({ data: tempData })
+          });
         });
-      });
     }
-    if(title === null && type === null){
+    if (title === null && type === null) {
       firestore()
-      .collection('sneakers')
-      .limit(10)
-      .get()
-      .then(querySnapshot => {
-        console.log('Total sneakers: ', querySnapshot.size);
-        querySnapshot.forEach(async documentSnapshot => {
-          this.setState({ isLoading: false })
-          let tempData = this.state.data.concat(documentSnapshot.data())
-          await this.setState({ data: tempData })
+        .collection('sneakers')
+        .limit(10)
+        .get()
+        .then(querySnapshot => {
+          console.log('Total sneakers: ', querySnapshot.size);
+          querySnapshot.forEach(async documentSnapshot => {
+            this.setState({ isLoading: false })
+            let tempData = this.state.data.concat(documentSnapshot.data())
+            await this.setState({ data: tempData })
+          });
         });
-      });
     }
     firestore()
       .collection('sneakers')
@@ -179,8 +208,8 @@ class Search extends Component {
             justifyContent: 'space-between',
             height: height,
           }}>
-          {data && data.length >0 && data.map(el => {
-            return <Card item={el} style={{height: '15%'}} />;
+          {data && data.length > 0 && data.map(el => {
+            return <Card item={el} style={{ height: '15%' }} />;
           })}
           {
             isLoading === true && (
@@ -229,9 +258,10 @@ class Search extends Component {
                     },
                   ]}
                   mode={'dropdown'}
-                  onValueChange={(itemValue, itemIndex) =>
+                  onValueChange={(itemValue, itemIndex) => {
                     this.setState({ selectedType: itemValue })
-                  }>
+                    this.search(itemValue, this.state.selectedSize, this.state.selectedBrand);
+                  }}>
                   {type.map((el, index) => {
                     return (
                       <Picker.Item
@@ -258,9 +288,11 @@ class Search extends Component {
                     },
                   ]}
                   mode={'dropdown'}
-                  onValueChange={(itemValue, itemIndex) =>
-                    this.searchSize(itemValue)
-                  }>
+                  onValueChange={(itemValue, itemIndex) => {
+                    this.searchSize(itemValue);
+                    this.setState({ selectedSize: itemValue });
+                    this.search(this.state.selectedType, itemValue, this.state.selectedBrand);
+                  }}>
                   {this.state.sizes.length > 0 &&
                     this.state.sizes.map((el, index) => {
                       return <Picker.Item key={index} label={el} value={el} />;
@@ -275,7 +307,7 @@ class Search extends Component {
               style={{ position: 'absolute', top: 100 }}>
               <View style={{ flex: 1, flexDirection: 'row', marginTop: 80 }}>
                 <TouchableOpacity
-                  onPress={() => this.setState({selectedBrand: null})}
+                  onPress={() => this.setState({ selectedBrand: null })}
                   style={[
                     Style.cardStyleWithShadow,
                     {
@@ -292,7 +324,10 @@ class Search extends Component {
                 {brands.map(el => {
                   return (
                     <TouchableOpacity
-                      onPress={() => this.setState({selectedBrand: el.title})}
+                      onPress={() => {
+                        this.setState({ selectedBrand: el.title });
+                        this.search(this.state.selectedType, this.state.selectedSize, el.title);
+                      }}
                       style={[
                         Style.cardStyleWithShadow,
                         {
