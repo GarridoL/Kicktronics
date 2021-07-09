@@ -14,6 +14,7 @@ import {
 import Style from './Style.js';
 import {connect} from 'react-redux';
 import {Routes, Color, Helper, BasicStyles} from 'common';
+import firestore from '@react-native-firebase/firestore';
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
 
@@ -32,21 +33,68 @@ let sizes = [
 class Sizes extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      noOfIssues: 0,
+      noOfSpBox: 0,
+    };
   }
 
   redirect(item) {
+    const {type, picture, itemKey} = this.props.navigation.state.params;
+    // const { setSelectedProduct } = this.props;
+    item['type'] = type;
+    item['picture'] = picture;
+    console.log('^^^^^^^^^^^^^^^^^^^', this.props);
+    this.props.setSelectedProduct(item);
     this.props.navigation.navigate('checkoutStack', {
-        data: item 
+      data: item,
     });
   }
 
+  componentDidMount() {
+    const {itemKey, data} = this.props.navigation.state.params;
+    firestore()
+      .collection('issues')
+      .where('itemKey', '==', itemKey)
+      .get()
+      .then(querySnapshot => {
+        this.setState({noOfIssues: querySnapshot.size});
+      });
+    
+    let tempData = data.filter(el => {
+      return el.box === 'Special Box'
+    })
+    this.setState({noOfSpBox: tempData.length <= 0 ? 0 : tempData.length})
+  }
+
   render() {
-    const {routeName, data} = this.props.navigation.state.params;
+    const {routeName, data, type, picture} = this.props.navigation.state.params;
+    const {noOfIssues, noOfSpBox} = this.state;
+    console.log('>>>>>>>>>', picture);
     return (
       <View>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={{height: height}}>
+          <View
+            style={{
+              marginBottom: 20,
+              marginTop: 20,
+              marginRight: 10,
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                paddingLeft: 50,
+                paddingRight: 50,
+              }}>
+              <Image
+                source={{uri: picture}}
+                style={{height: 60, width: 60, resizeMode: 'stretch'}}></Image>
+              <Text style={{textAlign: 'right'}}>US {type}'s size</Text>
+            </View>
+          </View>
+          <View style={{height: height, paddingRight: 10, paddingLeft: 10}}>
             {routeName === 'sizes' &&
               data.map(el => {
                 return (
@@ -65,7 +113,7 @@ class Sizes extends Component {
                               flexDirection: 'column',
                               alignItems: 'center',
                             }}>
-                            <Text style={{fontSize: 12, fontWeight: 'bold'}}>
+                            <Text style={{fontWeight: 'bold', color: 'gray'}}>
                               {el?.size}
                             </Text>
                           </View>
@@ -75,7 +123,7 @@ class Sizes extends Component {
                               flexDirection: 'column',
                               alignItems: 'center',
                             }}>
-                            <Text style={{textTransform : 'uppercase'}}>{el?.box}</Text>
+                            <Text>{el?.box}</Text>
                           </View>
                           <View
                             style={{
@@ -83,7 +131,9 @@ class Sizes extends Component {
                               flexDirection: 'column',
                               alignItems: 'center',
                             }}>
-                            <Text>${el.price}</Text>
+                            <Text style={{fontWeight: 'bold', color: 'gray'}}>
+                              US${el.price}
+                            </Text>
                           </View>
                         </View>
                       </View>
@@ -93,9 +143,31 @@ class Sizes extends Component {
               })}
           </View>
         </ScrollView>
+        <View
+          style={[
+            Style.btnWithShadow,
+            {position: 'absolute', bottom: -20, width: '100%'},
+          ]}>
+          <View style={{alignItems: 'flex-start'}}>
+            <Text style={{color: Color.primary}}>{noOfIssues} new with issues</Text>
+            <Text style={{color: Color.primary}}>{noOfSpBox} new with special box</Text>
+          </View>
+        </View>
       </View>
     );
   }
 }
 
-export default Sizes;
+const mapStateToProps = state => ({ state: state });
+
+const mapDispatchToProps = dispatch => {
+    const { actions } = require('@redux');
+    return {
+      setSelectedProduct: (selectedProduct) => dispatch(actions.setSelectedProduct(selectedProduct)),
+    };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Sizes);

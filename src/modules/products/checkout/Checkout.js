@@ -7,13 +7,16 @@ import {
   Dimensions,
   TouchableOpacity,
   Image,
-  SafeAreaView
+  SafeAreaView,
 } from 'react-native';
 import Style from '../Style.js';
 import {connect} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import {Spinner} from 'components';
 import {Routes, Color, Helper, BasicStyles} from 'common';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import Modal from 'react-native-modal';
+import {faMobile, faShieldAlt} from '@fortawesome/free-solid-svg-icons';
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
 
@@ -35,20 +38,98 @@ class Checkout extends Component {
     this.state = {
       sizes: ['1'],
       details: null,
+      showModal: false,
     };
   }
 
   componentDidMount() {
     const {data} = this.props.navigation.state.params;
     // console.log('<<<<<<<<<<<<<<<', data);
+    this.setState({showModal: true});
     firestore()
       .collection('sneakers')
       .doc(data.itemKey)
       .get()
       .then(querySnapshot => {
-        console.log('................', querySnapshot);
         this.setState({details: querySnapshot.data()});
       });
+  }
+
+  renderModal() {
+    const {showModal} = this.state;
+    return (
+      <View style={([Style.centeredView], {width: width})}>
+        <Modal animationType="fade" transparent={true} visible={showModal}>
+          <View
+            style={[
+              Style.centeredView,
+              {backgroundColor: 'rgba(255, 255, 255, 0.8)'},
+            ]}>
+            <View style={Style.modalView}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginBottom: 20,
+                }}>
+                <FontAwesomeIcon
+                  icon={faShieldAlt}
+                  size={30}
+                  style={{marginRight: 5}}></FontAwesomeIcon>
+                <Text style={{width: 300}}>
+                  We guaranteee that these sneakers are 100% authentic
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginBottom: 20,
+                }}>
+                <FontAwesomeIcon
+                  icon={faMobile}
+                  size={30}
+                  style={{marginRight: 5}}></FontAwesomeIcon>
+                <Text style={{width: 300}}>
+                  Shipping time takes about 7-10 business days. We need to
+                  authenticate the sneakers before them out to you
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginBottom: 20,
+                }}>
+                <Image
+                  source={require('assets/logo.png')}
+                  style={{
+                    width: '20%',
+                    height: 60,
+                    resizeMode: 'stretch',
+                    marginLeft: -10,
+                  }}></Image>
+                <Text style={{width: 300}}>
+                  No returns are accepted. It's authentic. Guaranteed.
+                </Text>
+              </View>
+              <TouchableOpacity
+                onPress={() => this.setState({showModal: false})}
+                style={[
+                  Style.btnWithShadow,
+                  {
+                    backgroundColor: '#1aa3ff',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                  },
+                ]}>
+                <Text style={{color: Color.primary}}>Continue</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+      </View>
+    );
   }
 
   render() {
@@ -56,16 +137,25 @@ class Checkout extends Component {
     const {data} = this.props.navigation.state.params;
     return (
       <View style={{flex: 1}}>
+        {this.renderModal()}
         {details !== null ? (
           <SafeAreaView>
-            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingLeft: 10,
+                paddingRight: 10,
+              }}>
               <Image
-                source={require('assets/logo.png')}
-                style={{width: 200, height: 200}}></Image>
+                source={{uri: details.picture}}
+                style={{width: 150, height: 150}}></Image>
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{fontSize: 20}}>{details.name}</Text>
+                <Text>{details.name}</Text>
                 <Text>{details.brand}</Text>
-                <Text>{details.type} • Size {data.size} • {data.cond} • {data.box}</Text>
+                <Text>
+                  {details.type} • {data.size} • {data.cond} • {data.box}
+                </Text>
               </View>
             </View>
             <View
@@ -82,9 +172,7 @@ class Checkout extends Component {
                 }}>
                 <Text>Your Total</Text>
                 <TouchableOpacity>
-                  <Text style={{color: 'gray', fontWeight: 'bold'}}>
-                    ${data.price}(Shipping not included)
-                  </Text>
+                  <Text>${data.price}(Shipping not included)</Text>
                 </TouchableOpacity>
               </View>
               <View
@@ -95,9 +183,7 @@ class Checkout extends Component {
                 }}>
                 <Text>Ship to</Text>
                 <TouchableOpacity>
-                  <Text style={{color: 'gray', fontWeight: 'bold'}}>
-                    Add address
-                  </Text>
+                  <Text style={{color: '#1aa3ff'}}>Add address</Text>
                 </TouchableOpacity>
               </View>
               <View
@@ -108,11 +194,16 @@ class Checkout extends Component {
                 }}>
                 <Text>Paypal</Text>
                 <TouchableOpacity>
-                  <Text style={{color: 'gray', fontWeight: 'bold'}}>
-                    Add payment
-                  </Text>
+                  <Text style={{color: '#1aa3ff'}}>Add PayPal</Text>
                 </TouchableOpacity>
               </View>
+              <View
+                style={{
+                  borderBottomColor: 'gray',
+                  borderBottomWidth: 1,
+                  marginBottom: 20,
+                }}
+              />
               <View style={{justifyContent: 'center', alignItems: 'center'}}>
                 <TouchableOpacity
                   style={[
@@ -123,12 +214,10 @@ class Checkout extends Component {
                       marginLeft: 'auto',
                     },
                   ]}>
-                  <Text style={{color: Color.primary}}>
-                    CHECKOUT WITH PAYPAL
-                  </Text>
+                  <Text style={{color: Color.primary}}>Purchase</Text>
                 </TouchableOpacity>
-                <Text>OR</Text>
-                <TouchableOpacity>
+                <Text>Or</Text>
+                <TouchableOpacity style={{marginTop: 10}}>
                   <Text style={{color: '#1aa3ff'}}>
                     Checkout with Credit Card via Paypal
                   </Text>

@@ -19,13 +19,9 @@ class HeaderOptions extends Component {
     const { theme } = this.props.state;
     return (
       <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity onPress={this.back.bind(this)}>
+        <TouchableOpacity onPress={this.back.bind(this)} style={{marginLeft: 10}}>
           {/*Donute Button Image */}
-          <FontAwesomeIcon
-            icon={faChevronLeft}
-            size={BasicStyles.headerBackIconSize}
-            style={{color: theme ? theme.secondary : Color.secondard }}
-          />
+          <Text>Cancel</Text>
         </TouchableOpacity>
       </View>
     );
@@ -44,10 +40,10 @@ const CheckoutStack = createStackNavigator({
   termsAndConditionsScreen: {
     screen: Checkout,
     navigationOptions: ({navigation}) => ({
-      title: 'Checkout',
+      title: '',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
       headerTitleStyle:{marginLeft: -20},
-      headerStyle:{elevation: 0},
+      headerStyle:{elevation: 0, borderWidth: 0.5},
       // headerTransparent:true,
       ...BasicStyles.drawerHeader1
     }),

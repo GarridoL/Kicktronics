@@ -10,7 +10,8 @@ const types = {
   UPDATE_USER: 'UPDATE_USER',
   SET_ACTIVE_HEADER: 'SET_ACTIVE_HEADER',
   SET_MODAL_OPTIONS: 'SET_MODAL_OPTIONS',
-  SET_ACTIVE_INDEX: 'SET_ACTIVE_INDEX'
+  SET_ACTIVE_INDEX: 'SET_ACTIVE_INDEX',
+  SET_SELECTED_PRODUCT : 'SET_SELECTED_PRODUCT'
 };
 
 export const actions = {
@@ -31,6 +32,9 @@ export const actions = {
   },
   setActiveIndex: (index) => {
     return {type: types.SET_ACTIVE_INDEX, index}
+  },
+  setSelectedProduct: (selectedProduct) => {
+    return {type: types.SET_SELECTED_PRODUCT, selectedProduct}
   }
 };
 
@@ -41,7 +45,8 @@ const initialState = {
   activeHeader: false,
   show: false,
   activeIndex: 0,
-  index: 0
+  index: 0,
+  selectedProduct: null
 };
 
 storeData = async (key, value) => {
@@ -64,6 +69,7 @@ const reducer = (state = initialState, action) => {
   const { type, user, token } = action;
   const { active, index } = action
   const { show } = action;
+  const { selectedProduct } = action;
   
   switch (type) {
     case types.LOGOUT:
@@ -96,6 +102,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         index
         // activeIndex: index
+      }
+    case types.SET_SELECTED_PRODUCT:
+      return {
+        ...state,
+        selectedProduct
       }
     default:
       return { ...state, nav: state.nav };
