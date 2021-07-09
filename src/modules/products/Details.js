@@ -27,13 +27,15 @@ class Details extends Component {
     super(props);
     this.state = {
       data: null,
+      isLoading: false
     };
   }
 
   componentDidMount() {
     const {details} = this.props.navigation.state.params;
-    // console.log('=====>>>>>>', details);
+    console.log('=====>>>>>>', details);
     let tempData = [];
+    this.setState({isLoading: true})
     firestore()
       .collection('owns')
       .where('itemKey', '==', details.document_id)
@@ -43,22 +45,25 @@ class Details extends Component {
         details['size'] = querySnapshot.size;
         this.setState({data: details});
         querySnapshot.forEach(documentSnapshot => {
+          this.setState({isLoading: false})
+          documentSnapshot.data()['ownId'] = documentSnapshot.id;
           tempData.push(documentSnapshot.data());
           console.log('=====>>>>>>');
         });
         details['owns'] = tempData;
         this.setState({data: details});
+        this.setState({isLoading: false})
         // console.log('=====>>>>>>----------', details);
       });
   }
 
   render() {
-    const {data} = this.state;
+    const {data, isLoading} = this.state;
     // console.log('DETAILS', data);
     return (
       <View style={{flex: 1}}>
-        {data !== null ? (
-          <View>
+        {data !== null && (
+          <View style={[Style.mainContainer]}>
             <ScrollView style={{backgroundColor: Color.lightGray}}>
               <View
                 style={{
@@ -75,7 +80,7 @@ class Details extends Component {
                     <Image
                       source={{uri: data?.picture}}
                       style={{width: 200, height: 200}}></Image>
-                    <Text style={{fontSize: 20, color: 'gray'}}>
+                    <Text style={{fontSize: 15, color: 'gray'}}>
                       {data.name}
                     </Text>
                   </View>
@@ -92,7 +97,10 @@ class Details extends Component {
                         },
                       ]}>
                       <Text style={{fontSize: 12, color: Color.gray}}>
-                        {data.owns && data.owns !== undefined && data.owns.length > 0 && data?.owns[0].cond === 'New'
+                        {data.owns &&
+                        data.owns !== undefined &&
+                        data.owns.length > 0 &&
+                        data?.owns[0].cond === 'New'
                           ? 'New'
                           : 'Used'}{' '}
                         out of stock
@@ -113,10 +121,15 @@ class Details extends Component {
                           this.props.navigation.navigate('sizesStack', {
                             routeName: 'sizes',
                             data: data?.owns,
+                            type: data.type,
+                            picture: data?.picture,
+                            itemKey: data.document_id,
                           })
                         }>
                         <Text style={{fontSize: 12, color: Color.gray}}>
-                          {data.owns && data.owns !== undefined && data.owns.length > 0 &&
+                          {data.owns &&
+                          data.owns !== undefined &&
+                          data.owns.length > 0 &&
                           data?.owns[0].cond === 'New'
                             ? 'NEW'
                             : 'USED'}{' '}
@@ -151,6 +164,8 @@ class Details extends Component {
                       flexWrap: 'wrap',
                       justifyContent: 'space-between',
                       marginTop: 70,
+                      paddingLeft: 5,
+                      paddingRight: 5,
                     }}>
                     {data &&
                       data.images &&
@@ -162,12 +177,17 @@ class Details extends Component {
                             {
                               marginBottom: 13,
                               width: '48%',
-                              height: 200,
+                              height: 150,
                               paddingTop: 10,
                             },
                             this.props.style,
                           ]}
-                          onPress={() => this.redirect(this.props.route, item)}>
+                          onPress={() =>
+                            this.props.navigation.navigate(
+                              'previewImageStack',
+                              {picture: el},
+                            )
+                          }>
                           <View>
                             {/* <Text>{image}</Text> */}
                             <Image
@@ -196,11 +216,8 @@ class Details extends Component {
               <Text style={{color: Color.primary}}>SELL</Text>
             </TouchableOpacity>
           </View>
-        ) : (
-          <View style={{justifyContent: 'center', alignItems: 'center'}}>
-            <Spinner mode="overlay" />
-          </View>
         )}
+          {isLoading ? <Spinner mode="overlay" /> : null}
       </View>
     );
   }

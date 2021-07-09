@@ -22,6 +22,8 @@ import AvailableSizeStack from 'modules/products/availableSizes/AvailableSizeDra
 import CreateOfferStack from 'modules/products/availableSizes/OfferDrawer.js'
 import CheckoutStack from 'modules/products/checkout/CheckoutDrawer.js'
 import Sell from 'modules/products/sell/index.js'
+import Report from 'modules/products/reports/index.js'
+import PreviewImage from 'modules/products/PreviewImage.js'
 import SupportStack from 'modules/helpSupport/indexDrawer.js' 
 import PurchaseHistory from 'modules/purchase/Drawer.js'
 // Landing stack
@@ -115,6 +117,8 @@ const PrimaryNav = createStackNavigator(
     createOfferStack: { screen: CreateOfferStack},
     checkoutStack: { screen: CheckoutStack},
     sellStack: { screen: Sell},
+    reportStack: { screen: Report},
+    previewImageStack: { screen: PreviewImage},
     supportStack: { screen: SupportStack},
     purchaseStack: { screen: PurchaseHistory},
     // editProfileStack: { screen: TermsStack},

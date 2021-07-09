@@ -55,6 +55,7 @@ class SubHeader extends Component {
     };
   }
   componentDidMount() {
+    this.props.setActiveIndex(0)
   }
 
   navigateToScreen = (route, index) => {

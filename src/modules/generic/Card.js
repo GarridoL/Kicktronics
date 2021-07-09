@@ -40,6 +40,7 @@ class Card extends Component {
   }
 
   redirect(route, item) {
+    console.log(item);
     console.log('NAVIGATION', this.props.navigation);
     this.props.navigation.navigate(route, {
       details: item,
