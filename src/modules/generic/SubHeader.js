@@ -80,7 +80,7 @@ class SubHeader extends Component {
     this.props.navigation.dispatch(navigateAction);
   };
   render() {
-    const {index} = this.props.state;
+    const {index} = this.props;
     return (
       <View
         style={{
@@ -98,8 +98,7 @@ class SubHeader extends Component {
               alignItems: 'center',
               justifyContent: 'center',
               width: '25%',
-              borderBottomColor:
-                index == ind ? 'black' : 'white',
+              borderBottomColor: index == ind ? 'black' : 'white',
               borderBottomWidth: 4,
               height: 50,
             }}

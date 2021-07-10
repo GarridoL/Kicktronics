@@ -31,7 +31,7 @@ class Demands extends Component{
         console.log(this.props.navigation.state.params);
         return (
             <View>
-                <SubHeader navigation={this.props.navigation} index={2}/>
+                <SubHeader navigation={this.props.navigation} index={1}/>
                 <ScrollView>
                 <View style={{
                     height: height,

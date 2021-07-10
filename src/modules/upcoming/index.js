@@ -69,7 +69,7 @@ class Upcoming extends Component {
     const { data } = this.state
     return (
       <SafeAreaView>
-        <SubHeader navigation={this.props.navigation} index={0} />
+        <SubHeader navigation={this.props.navigation} index={2} />
         <ScrollView
           showsVerticalScrollIndicator={false}
         // ref={scrollRef} 
