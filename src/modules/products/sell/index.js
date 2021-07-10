@@ -35,17 +35,19 @@ class Sell extends Component {
     }
 
     componentDidMount() {
-        const { user } = this.props.state
+      const { user } = this.props.state
+      if(user){
         this.setState({
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            birthDate: user.birthDate
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          birthDate: user.birthDate
         })
+      }
     }
 
     renderbasicInfo() {
-        const { user } = this.props.state
+      const { firstName, lastName, birthDate, email} = this.state;
         return (
             <View style={{ flex: 1, paddingLeft: 10, paddingRight: 10 }}>
                 <Text style={{ marginTop: 20, color: Color.gray, marginBottom: 5 }}>Basic Information</Text>
@@ -56,9 +58,8 @@ class Sell extends Component {
                         borderColor: 'black'
                     }}
                     onChangeText={firstName => this.setState({ firstName })}
-                    value={user.firstName}
+                    value={firstName}
                     placeholder={'First Name'}
-                    editable={false}
                 />
                 <TextInput
                     style={{
@@ -67,9 +68,8 @@ class Sell extends Component {
                         borderColor: 'black'
                     }}
                     onChangeText={lastName => this.setState({ lastName })}
-                    value={user.lastName}
+                    value={lastName}
                     placeholder={'Last Name'}
-                    editable={false}
                 />
                 <TextInput
                     style={{
@@ -78,14 +78,13 @@ class Sell extends Component {
                         borderColor: 'black'
                     }}
                     onChangeText={email => this.setState({ email })}
-                    value={user.email}
+                    value={email}
                     placeholder={'Email Address'}
                     keyboardType={'email-address'}
-                    editable={false}
                 />
                 <DateTime
                     type={'date'}
-                    placeholder={user.birthDate !== null ? user.birthDate : 'Date of birth'}
+                    placeholder={birthDate !== null ? birthDate : 'Date of birth'}
                     onFinish={(date) => {
                         this.setState({
                             birthDate: date.date
@@ -227,58 +226,58 @@ class Sell extends Component {
         }
     }
 
-    render() {
-        const { page, isLoading } = this.state
-        return (
-            <View style={{ flex: 1 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10, borderBottomColor: 'black', borderBottomWidth: 1 }}>
-                    {
-                        page == 0 ? (
-                            <TouchableOpacity onPress={() => this.props.navigation.pop()}>
-                                <Text>Cancel</Text>
-                            </TouchableOpacity>
-                        ) : (
-                            <TouchableOpacity onPress={() => this.setState({ page: page - 1 })}>
-                                <Text>Prev</Text>
-                            </TouchableOpacity>
-                        )
-                    }
-                    {
-                        page == 0 ? (
-                            <TouchableOpacity onPress={() => this.proceedToNextPage(page == 0 ? false : true)}>
-                                <Text>Next</Text>
-                            </TouchableOpacity>
-                        ) : (
-                            <TouchableOpacity onPress={() => this.proceedToNextPage(true)}>
-                                <Text>Next</Text>
-                            </TouchableOpacity>
-                        )
-                    }
+  render() {
+    const { page, isLoading, user } = this.state
+    return (
+      <View style={{ flex: 1 }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10, borderBottomColor: 'black', borderBottomWidth: 1 }}>
+            {
+              page == 0 ? (
+                  <TouchableOpacity onPress={() => this.props.navigation.pop()}>
+                      <Text>Cancel</Text>
+                  </TouchableOpacity>
+              ) : (
+                  <TouchableOpacity onPress={() => this.setState({ page: page - 1 })}>
+                      <Text>Prev</Text>
+                  </TouchableOpacity>
+              )
+            }
+            {
+              page == 0 ? (
+                  <TouchableOpacity onPress={() => this.proceedToNextPage(page == 0 ? false : true)}>
+                      <Text>Next</Text>
+                  </TouchableOpacity>
+              ) : (
+                  <TouchableOpacity onPress={() => this.proceedToNextPage(true)}>
+                      <Text>Next</Text>
+                  </TouchableOpacity>
+              )
+            }
+          </View>
+          {
+            page === 0 && (
+              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Image source={require('assets/logo.png')} style={{ width: '15%', height: '20%', marginLeft: 'auto', marginRight: 'auto', resizeMode: 'stretch' }} ></Image>
+                <View style={{ marginTop: 40, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>To start selling, you'll nee to submit</Text>
+                    <Text>some additional information</Text>
+                    <Text style={{ marginTop: 20 }}>Tap Next to Continue</Text>
                 </View>
-                {
-                    page === 0 && (
-                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                            <Image source={require('assets/logo.png')} style={{ width: '15%', height: '20%', marginLeft: 'auto', marginRight: 'auto', resizeMode: 'stretch' }} ></Image>
-                            <View style={{ marginTop: 40, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text>To start selling, you'll nee to submit</Text>
-                                <Text>some additional information</Text>
-                                <Text style={{ marginTop: 20 }}>Tap Next to Continue</Text>
-                            </View>
-                        </View>
-                    )
-                }{
-                    page === 1 && (
-                        this.renderbasicInfo()
-                    )
-                }{
-                    page === 2 && (
-                        this.renderShippingAddress()
-                    )
-                }
-                {isLoading ? <Spinner mode="overlay" /> : null}
-            </View>
-        )
-    }
+              </View>
+            )
+          }{
+              (page === 1) && (
+                  this.renderbasicInfo()
+              )
+          }{
+              page === 2 && (
+                  this.renderShippingAddress()
+              )
+          }
+          {isLoading ? <Spinner mode="overlay" /> : null}
+      </View>
+    )
+  }
 }
 
 const mapStateToProps = state => ({ state: state });

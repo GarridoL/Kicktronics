@@ -43,13 +43,15 @@ class ProfileForm extends Component {
 
   componentDidMount() {
     const { user } = this.props.navigation.state.params
-    this.setState({
-      username: user.username,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      phone: user.phone
-    })
+    if(user){
+      this.setState({
+        username: user.username,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        phone: user.phone
+      })
+    }
     console.log(this.props.navigation.state.params);
   }
 
