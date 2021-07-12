@@ -44,7 +44,7 @@ const SizesStack = createStackNavigator({
     termsAndConditionsScreen: {
         screen: Sizes,
         navigationOptions: ({ navigation }) => ({
-            title: 'US Men Sizes',
+            title: '',
             headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
             headerRight: <View style={{ marginRight: 10 }}><TouchableOpacity onPress={() => navigation.navigate('availablSizeStack')}><Text>OFFER</Text></TouchableOpacity></View>,
             headerTitleStyle: { marginLeft: -20 },

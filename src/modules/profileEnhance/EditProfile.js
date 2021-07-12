@@ -187,21 +187,26 @@ class EditProfile extends Component {
             <Text>{user !== null ? user.username: '----'}</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => this.redirect('profileFormStack', 'Full Name')}>
-          <View
-            style={[
-              Style.cardWithShadow,
-              {
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                width: width,
-              },
-            ]}>
-            <Text>FULL NAME</Text>
-            <Text>{user !== null ? user.firstName + ' '+ user.lastName: '----'}</Text>
-          </View>
-        </TouchableOpacity>
+        {
+          user && (
+            <TouchableOpacity
+              onPress={() => this.redirect('profileFormStack', 'Full Name')}>
+              <View
+                style={[
+                  Style.cardWithShadow,
+                  {
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    width: width,
+                  },
+                ]}>
+                <Text>FULL NAME</Text>
+                <Text>{user !== null ? user.firstName + ' '+ user.lastName: '----'}</Text>
+              </View>
+            </TouchableOpacity>
+          )
+        }
+
         <TouchableOpacity onPress={() => this.setModalVisible(true, 'Email')}>
           <View
             style={[

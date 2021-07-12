@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, TouchableOpacity, Text, Dimensions} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faChevronLeft, faBars} from '@fortawesome/free-solid-svg-icons';
+import {faChevronLeft, faBars, faShareSquare} from '@fortawesome/free-solid-svg-icons';
 import Details from 'modules/products/Details.js';
 import {NavigationActions} from 'react-navigation';
 import {BasicStyles, Color} from 'common';
@@ -13,10 +13,10 @@ class HeaderOptions extends Component {
     super(props);
   }
   back = () => {
-    this.props.navigationProps.pop()
+    this.props.navigationProps.pop();
   };
   render() {
-    const { theme } = this.props.state;
+    const {theme} = this.props.state;
     return (
       <View style={{flexDirection: 'row'}}>
         <TouchableOpacity onPress={this.back.bind(this)}>
@@ -24,7 +24,7 @@ class HeaderOptions extends Component {
           <FontAwesomeIcon
             icon={faChevronLeft}
             size={BasicStyles.headerBackIconSize}
-            style={{color: theme ? theme.secondary : Color.secondard }}
+            style={{color: theme ? theme.secondary : Color.secondard}}
           />
         </TouchableOpacity>
       </View>
@@ -32,29 +32,41 @@ class HeaderOptions extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({state: state});
+const mapStateToProps = state => ({state: state});
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   const {actions} = require('@redux');
   return {};
 };
-let HeaderOptionsConnect  = connect(mapStateToProps, mapDispatchToProps)(HeaderOptions);
+let HeaderOptionsConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(HeaderOptions);
 
 const DetailsStack = createStackNavigator({
   termsAndConditionsScreen: {
     screen: Details,
-    navigationOptions: ({navigation}) => ({
-      title: 'Product Details',
+    navigationOptions: ({navigation, params}) => ({
+      title: '',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
-      headerTitleStyle:{marginLeft: -20},
-      headerStyle:{elevation: 0},
+      headerRight: (
+        <View style={{marginRight: 10}}>
+          <TouchableOpacity
+            style={{flexDirection: 'row'}}
+            onPress={() => navigation.navigate('reportStack', {
+              itemKey: navigation.state.params.details.document_id
+            })}>
+              <FontAwesomeIcon icon={faShareSquare} color={'gray'} size={20} style={{marginRight:5}}></FontAwesomeIcon>
+            <Text>Report Issues</Text>
+          </TouchableOpacity>
+        </View>
+      ),
+      headerTitleStyle: {marginLeft: -20},
+      headerStyle: {elevation: 0},
       // headerTransparent:true,
-      ...BasicStyles.drawerHeader1
+      ...BasicStyles.drawerHeader1,
     }),
   },
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DetailsStack);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsStack);

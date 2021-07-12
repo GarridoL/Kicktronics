@@ -134,8 +134,8 @@ android {
         applicationId "com.kicktronics"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 25
-        versionName "2.5"
+        versionCode 28
+        versionName "2.8"
         missingDimensionStrategy 'react-native-camera', 'general'
         multiDexEnabled true
     }
@@ -197,21 +197,14 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
-
     implementation 'com.google.firebase:firebase-core:17.2.1'
-
     implementation 'com.google.firebase:firebase-messaging:20.0.0'
-
     implementation "com.google.firebase:firebase-firestore:19.0.0"
-
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
-
     implementation 'androidx.multidex:multidex:2.0.1'
-
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
     }
-
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.flipper'
         exclude group:'com.squareup.okhttp3', module:'okhttp'

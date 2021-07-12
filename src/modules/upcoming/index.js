@@ -57,6 +57,7 @@ class Upcoming extends Component {
 
         querySnapshot.forEach(documentSnapshot => {
           this.setState({ isLoading: false })
+          documentSnapshot.data()['document_id'] = documentSnapshot.id
           let tempData = this.state.data.concat(documentSnapshot.data())
           this.setState({ data: tempData })
           // console.log('Sneakers:================ ', documentSnapshot.id, documentSnapshot.data());
@@ -68,7 +69,7 @@ class Upcoming extends Component {
     const { data } = this.state
     return (
       <SafeAreaView>
-        <SubHeader navigation={this.props.navigation} index={0} />
+        <SubHeader navigation={this.props.navigation} index={2} />
         <ScrollView
           showsVerticalScrollIndicator={false}
         // ref={scrollRef} 
