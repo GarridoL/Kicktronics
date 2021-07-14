@@ -48,7 +48,7 @@ class Search extends Component {
       sizes: ["1"],
       isLoading: false,
       selectedType: 'All Type',
-      selectedSize: 1,
+      selectedSize: '1',
       selectedBrand: 'All Brands',
       title: null,
       type: null,
@@ -60,6 +60,22 @@ class Search extends Component {
   componentDidMount() {
     this.sizeCounter();
     this.searchAll('1');
+  }
+
+  componentDidUpdate() {
+    console.log(this.props.navigation?.state?.params?.search, 'searching');
+    // if(this.props.navigation?.state?.params?.search) {
+    //   let temp = []
+    //   this.setState({ isLoading: true })
+    //   firestore()
+    //     .collection('sneakers')
+    //     .where(this.props.navigation?.state?.params?.search, '==', true)
+    //     .get()
+    //     .then(querySnapshot1 => {
+    //       temp.push(querySnapshot1.data())
+    //       this.setState({ data: temp });
+    //     });
+    // }
   }
 
   async sizeCounter() {
@@ -98,7 +114,7 @@ class Search extends Component {
       });
   }
 
-  searchWithBrand = async (selectedType, selectedSize, selectedBrand) => {
+  searchWithBrand = async (selectedSize, selectedBrand) => {
     let temp = []
     this.setState({ isLoading: true })
     firestore()
