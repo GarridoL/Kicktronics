@@ -104,6 +104,7 @@ class Search extends Component {
               .doc(documentSnapshot.id)
               .get()
               .then(querySnapshot1 => {
+                querySnapshot1.data()['document_id'] = querySnapshot1.id
                 temp.push(querySnapshot1.data())
                 this.setState({ data: temp });
               });
@@ -132,6 +133,7 @@ class Search extends Component {
               .doc(documentSnapshot.id)
               .get()
               .then(querySnapshot1 => {
+                querySnapshot1.data()['document_id'] = querySnapshot1.id
                 temp.push(querySnapshot1.data())
                 this.setState({ data: temp });
               });
@@ -160,6 +162,7 @@ class Search extends Component {
               .doc(documentSnapshot.id)
               .get()
               .then(querySnapshot1 => {
+                querySnapshot1.data()['document_id'] = querySnapshot1.id
                 temp.push(querySnapshot1.data())
                 this.setState({ data: temp });
               });
@@ -189,6 +192,7 @@ class Search extends Component {
               .doc(documentSnapshot.id)
               .get()
               .then(querySnapshot1 => {
+                querySnapshot1.data()['document_id'] = querySnapshot1.id
                 temp.push(querySnapshot1.data())
                 this.setState({ data: temp });
               });
@@ -221,7 +225,7 @@ class Search extends Component {
   renderBrands(brand) {
     const { data, isLoading } = this.state
     return (
-      <View style={{ marginTop: '40%' }}>
+      <View style={{ marginTop: '20%' }}>
         <View
           style={{
             flex: 1,
@@ -231,7 +235,7 @@ class Search extends Component {
             height: height,
           }}>
           {data && data.length > 0 && data.map((el, index) => {
-            return <Card key={index} item={el} style={{ height: '15%' }} page={'search'} />;
+            return <Card key={index} item={el} style={{ height: '15%', marginTop: 40 }} route={'detailsStack'} page={'search'} navigation={this.props.navigation} />;
           })}
           {
             isLoading === true && (
