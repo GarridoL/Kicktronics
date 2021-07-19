@@ -44,9 +44,9 @@ const DemandsStack = createStackNavigator({
   termsAndConditionsScreen: {
     screen: Demands,
     navigationOptions: ({navigation}) => ({
-      title: 'HIGH DEMANDS',
+      title: 'HIGH DEMAND',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
-      headerTitleStyle:{marginLeft: -30, zIndex: 1000, fontSize: 15},
+      headerTitleStyle:{marginLeft: -30, zIndex: 1000, fontSize: 13, fontFamily: 'monospace', letterSpacing: 3},
       headerStyle:{elevation: 0, height: 30},
       // headerTransparent:true,
       ...BasicStyles.drawerHeader1

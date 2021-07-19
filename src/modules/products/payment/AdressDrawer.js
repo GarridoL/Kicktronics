@@ -3,7 +3,7 @@ import {View, TouchableOpacity, Text, Dimensions} from 'react-native';
 import {createStackNavigator} from 'react-navigation-stack';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faChevronLeft, faBars} from '@fortawesome/free-solid-svg-icons';
-import HomePage from 'modules/homepage/index.js';
+import ShippingAddress from 'modules/products/payment/ShippingAddress.js';
 import {NavigationActions} from 'react-navigation';
 import {BasicStyles, Color} from 'common';
 import {connect} from 'react-redux';
@@ -24,7 +24,7 @@ class HeaderOptions extends Component {
           <FontAwesomeIcon
             icon={faChevronLeft}
             size={BasicStyles.headerBackIconSize}
-            style={{color: theme ? theme.primary : Color.primary }}
+            style={{color: theme ? theme.secondary : Color.secondard }}
           />
         </TouchableOpacity>
       </View>
@@ -40,14 +40,14 @@ const mapDispatchToProps = (dispatch) => {
 };
 let HeaderOptionsConnect  = connect(mapStateToProps, mapDispatchToProps)(HeaderOptions);
 
-const HomePageStack = createStackNavigator({
+const AddressStack = createStackNavigator({
   termsAndConditionsScreen: {
-    screen: HomePage,
+    screen: ShippingAddress,
     navigationOptions: ({navigation}) => ({
-      title: 'BUY NOW',
+      title: 'Choose address',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
-      headerTitleStyle:{marginLeft: -30, zIndex: 1000, fontSize: 13, letterSpacing: 3},
-      headerStyle:{elevation: 0, height: 30,},
+      headerTitleStyle:{marginLeft: 60},
+      headerStyle:{elevation: 0},
       // headerTransparent:true,
       ...BasicStyles.drawerHeader1
     }),
@@ -57,4 +57,4 @@ const HomePageStack = createStackNavigator({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(HomePageStack);
+)(AddressStack);

@@ -63,7 +63,7 @@ class Details extends Component {
     return (
       <View style={{flex: 1}}>
         {data !== null && (
-          <View style={{flex: 1}}>
+          <View style={[Style.mainContainer]}>
             <ScrollView style={{backgroundColor: Color.lightGray}}>
               <View
                 style={{
@@ -207,17 +207,16 @@ class Details extends Component {
                 </View>
               </View>
             </ScrollView>
-            
+            <TouchableOpacity
+              style={[
+                Style.btnWithShadow,
+                {position: 'absolute', bottom: -20, width: width},
+              ]}
+              onPress={() => this.props.navigation.navigate('sellStack')}>
+              <Text style={{color: Color.primary}}>SELL</Text>
+            </TouchableOpacity>
           </View>
         )}
-        <TouchableOpacity
-            style={[
-              Style.btnWithShadow,
-              {position: 'absolute', bottom: -20, width: '100%'},
-            ]}
-            onPress={() => this.props.navigation.navigate('sellStack')}>
-            <Text style={{color: Color.primary}}>SELL</Text>
-          </TouchableOpacity>
         {isLoading ? <Spinner mode="overlay" /> : null}
       </View>
     );

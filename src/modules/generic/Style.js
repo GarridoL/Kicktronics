@@ -10,5 +10,10 @@ export default {
         borderRadius: BasicStyles.standardBorderRadius,
         // backgroundColor: Color.primary,
         padding: 10
+    },
+
+    fontStyle: {
+        fontSize: 11
     }
+
 }
