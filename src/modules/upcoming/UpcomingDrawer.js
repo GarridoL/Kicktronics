@@ -46,7 +46,7 @@ const UpcomingStack = createStackNavigator({
     navigationOptions: ({navigation}) => ({
       title: 'UPCOMING RELEASE',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
-      headerTitleStyle:{marginLeft: -30, zIndex: 1000, fontSize: 15},
+      headerTitleStyle:{marginLeft: -30, zIndex: 1000, fontSize: 13, letterSpacing: 3},
       headerStyle:{elevation: 0, height: 30},
       // headerTransparent:true,
       ...BasicStyles.drawerHeader1

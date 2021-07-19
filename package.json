@@ -9,6 +9,11 @@
     "test": "jest",
     "lint": "eslint ."
   },
+  "rnpm": {
+    "assets": [
+    "./src/assets/font/monospace"
+    ]
+  },
   "dependencies": {
     "@crowdlinker/react-native-pager": "^0.2.3",
     "@fortawesome/fontawesome-svg-core": "^1.2.26",

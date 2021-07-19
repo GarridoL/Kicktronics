@@ -6,6 +6,7 @@
  */
 
 module.exports = {
+  assets: ['./src/assets/fonts/NunitoSans'],
   transformer: {
     getTransformOptions: async () => ({
       transform: {

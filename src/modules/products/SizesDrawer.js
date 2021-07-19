@@ -46,7 +46,7 @@ const SizesStack = createStackNavigator({
         navigationOptions: ({ navigation }) => ({
             title: '',
             headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
-            headerRight: <View style={{ marginRight: 10 }}><TouchableOpacity onPress={() => navigation.navigate('availablSizeStack')}><Text>OFFER</Text></TouchableOpacity></View>,
+            headerRight: <View style={{ marginRight: 10 }}><TouchableOpacity onPress={() => navigation.navigate('optionsStack')}><Text>OFFER</Text></TouchableOpacity></View>,
             headerTitleStyle: { marginLeft: -20 },
             headerStyle: { elevation: 0 },
             // headerTransparent:true,

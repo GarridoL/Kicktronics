@@ -250,5 +250,14 @@ export default {
     borderRadius: 25,
     paddingLeft: 10
   },
+  basicFormControl: {
+    height: 40,
+    borderColor: Color.lightGray,
+    // backgroundColor: 'red',
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    width: '100%', 
+    paddingLeft: 10
+  },
   inputBorderRadius: 25,
 }

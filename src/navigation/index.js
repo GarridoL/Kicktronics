@@ -26,6 +26,8 @@ import Report from 'modules/products/reports/index.js'
 import PreviewImage from 'modules/products/PreviewImage.js'
 import SupportStack from 'modules/helpSupport/indexDrawer.js' 
 import PurchaseHistory from 'modules/purchase/Drawer.js'
+import Options from 'modules/products/payment/Options.js'
+import AddressStack from 'modules/products/payment/AdressDrawer.js'
 // Landing stack
 const LandingPageStack = createStackNavigator(
   {
@@ -121,6 +123,8 @@ const PrimaryNav = createStackNavigator(
     previewImageStack: { screen: PreviewImage},
     supportStack: { screen: SupportStack},
     purchaseStack: { screen: PurchaseHistory},
+    optionsStack: { screen: Options},
+    addressStack: { screen: AddressStack},
     // editProfileStack: { screen: TermsStack},
   },
   {

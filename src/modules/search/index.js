@@ -285,7 +285,7 @@ class Search extends Component {
                       justifyContent: 'center',
                     },
                   ]}>
-                  <Text style={{ fontSize: 20, textAlign: 'center' }}>
+                  <Text style={{ fontSize: 12, textAlign: 'center' }}>
                     All Brands
                   </Text>
                 </TouchableOpacity>
@@ -294,7 +294,6 @@ class Search extends Component {
                     <TouchableOpacity
                       onPress={() => this.setState({selectedBrand: el.title})}
                       style={[
-                        Style.cardStyleWithShadow,
                         {
                           height: '80%',
                           marginTop: 10,

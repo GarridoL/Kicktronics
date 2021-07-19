@@ -96,8 +96,8 @@ class Card extends Component {
                   <View>
                     {item.lowestPrice > 0 && (
                       <View>
-                        <Text>From</Text>
-                        <Text>{'US$ ' + item.lowestPrice}</Text>
+                        <Text style={Style.fontStyle}>From</Text>
+                        <Text style={Style.fontStyle}>{'US$ ' + item.lowestPrice}</Text>
                       </View>
                     )}
                     <Image
@@ -110,13 +110,13 @@ class Card extends Component {
                         resizeMode: 'stretch',
                       }}
                     />
-                    <Text>{item.name}</Text>
+                    <Text style={{fontSize: 12}}>{item.name}</Text>
                   </View>
                 ))}
               {this.props.page === 'upcoming' && (
                 <View>
-                  <Text>From</Text>
-                  <Text>{dateRelease}</Text>
+                  <Text style={Style.fontStyle}>From</Text>
+                  <Text style={Style.fontStyle}>{dateRelease}</Text>
                   <Image
                     source={{uri: image}}
                     style={{
@@ -127,15 +127,15 @@ class Card extends Component {
                       resizeMode: 'stretch',
                     }}
                   />
-                  <Text>{item.name}</Text>
+                  <Text style={{fontSize: 12}}>{item.name}</Text>
                 </View>
               )}
               {(this.props.page === 'search' && (
                   <View>
                     {item.lowestPrice > 0 && (
                       <View>
-                        <Text>From</Text>
-                        <Text>{'US$ ' + item.lowestPrice}</Text>
+                        <Text style={Style.fontStyle}>From</Text>
+                        <Text style={Style.fontStyle}>{'US$ ' + item.lowestPrice}</Text>
                       </View>
                     )}
                     <Image
@@ -148,7 +148,7 @@ class Card extends Component {
                         resizeMode: 'stretch',
                       }}
                     />
-                    <Text>{item.name}</Text>
+                    <Text style={{fontSize: 12}}>{item.name}</Text>
                   </View>
                 ))}
             </View>
@@ -164,8 +164,8 @@ class Card extends Component {
                   resizeMode: 'stretch',
                 }}
               />
-              <Text>{item.name}</Text>
-              <Text>{'$ ' + item.price}</Text>
+              <Text style={{fontSize: 12}}>{item.name}</Text>
+              <Text style={{fontSize: 12}}>{'$ ' + item.price}</Text>
             </View>
           )}
         </TouchableOpacity>
