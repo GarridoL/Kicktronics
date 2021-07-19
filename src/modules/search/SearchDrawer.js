@@ -13,6 +13,9 @@ const width = Math.round(Dimensions.get('window').width);
 class HeaderOptions extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      input: null
+    }
   }
   back = () => {
     this.props.navigationProps.pop()
@@ -48,7 +51,9 @@ const SearchStack = createStackNavigator({
     navigationOptions: ({navigation}) => ({
       title: '',
       headerLeft: <HeaderOptionsConnect navigationProps={navigation} />,
-      headerRight: <TextInputWithIcon icon={faSearch} placeholder={'Search'} style={{width: width-20, marginTop: 20, borderColor: '#000000', marginRight: 10}}/>,
+      headerRight: <TextInputWithIcon icon={faSearch} placeholder={'Search'} onTyping={(text) => {
+        navigation.setParams({search: text});
+      }} style={{width: width-20, marginTop: 20, borderColor: '#000000', marginRight: 10}}/>,
       // headerTitleStyle: { marginLeft: '45%'},
       headerStyle: Style.headerStyle
     }),

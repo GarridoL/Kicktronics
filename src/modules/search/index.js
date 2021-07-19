@@ -24,51 +24,22 @@ import firestore from '@react-native-firebase/firestore';
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
 
-let brands = [
-  { id: '1', url: require('assets/adidas.png'), title: 'adidas' },
-  { id: '2', url: require('assets/jordan.jpg'), title: 'jordan' },
-  { id: '3', url: require('assets/nike.png'), title: 'nike' },
-  { id: '4', url: require('assets/asics.png'), title: 'asics' },
-  { id: '5', url: require('assets/converse.png'), title: 'converse' },
-  { id: '6', url: require('assets/diadora.png'), title: 'diadora' },
-  { id: '7', url: require('assets/ewing.png'), title: 'ewing' },
-  { id: '8', url: require('assets/newBalance.png'), title: 'newBalance' },
-  { id: '9', url: require('assets/puma.png'), title: 'puma' },
-  { id: '10', url: require('assets/reebok.png'), title: 'reebook' },
-  { id: '11', url: require('assets/soucony.png'), title: 'soucony' },
-  { id: '12', url: require('assets/underArmour.png'), title: 'underArmour' },
-  { id: '13', url: require('assets/vans.png'), title: 'vans' },
+const brands = [
+  { id: '1', url: require('assets/adidas.png'), title: 'Adidas' },
+  { id: '2', url: require('assets/jordan.jpg'), title: 'Air-Jordan' },
+  { id: '3', url: require('assets/nike.png'), title: 'Nike' },
+  { id: '4', url: require('assets/asics.png'), title: 'Asics' },
+  { id: '5', url: require('assets/converse.png'), title: 'Converse' },
+  { id: '6', url: require('assets/diadora.png'), title: 'Diadora' },
+  { id: '7', url: require('assets/ewing.png'), title: 'Ewing' },
+  { id: '8', url: require('assets/newBalance.png'), title: 'New-Balance' },
+  { id: '9', url: require('assets/puma.png'), title: 'Puma' },
+  { id: '10', url: require('assets/reebok.png'), title: 'Reebook' },
+  { id: '11', url: require('assets/soucony.png'), title: 'Soucony' },
+  { id: '12', url: require('assets/underArmour.png'), title: 'Under-Armour' },
+  { id: '13', url: require('assets/vans.png'), title: 'Vans' },
 ];
-
-let response = {
-  data: [
-    { id: 1, url: require('assets/logo.png'), price: '$200', title: 'Adidas' },
-    { id: 2, url: require('assets/logo2.png'), price: '$200', title: 'Nike' },
-    { id: 3, url: require('assets/logo1.png'), price: '$200', title: 'Rebook' },
-    {
-      id: 4,
-      url: require('assets/logo.png'),
-      price: '$200',
-      title: 'World Balance',
-    },
-    {
-      id: 5,
-      url: require('assets/logo2.png'),
-      price: '$200',
-      title: 'New Balance',
-    },
-    { id: 6, url: require('assets/logo1.png'), price: '$200', title: 'Snicker' },
-    { id: 7, url: require('assets/logo.png'), price: '$200', title: 'Robetson' },
-  ],
-};
-
-let type = [
-  { type: 'All Type' },
-  { type: 'Men' },
-  { type: 'Women' },
-  { type: 'Youth' },
-  { type: 'Todler' },
-];
+const type = ['All Type', 'Men', 'Women', 'Youth', 'Todler'];
 
 class Search extends Component {
   constructor(props) {
@@ -76,9 +47,9 @@ class Search extends Component {
     this.state = {
       sizes: ["1"],
       isLoading: false,
-      selectedType: null,
-      selectedSize: null,
-      selectedBrand: null,
+      selectedType: 'All Type',
+      selectedSize: '1',
+      selectedBrand: 'All Brands',
       title: null,
       type: null,
       size: null,
@@ -88,7 +59,23 @@ class Search extends Component {
 
   componentDidMount() {
     this.sizeCounter();
-    this.selectBrand();
+    this.searchAll('1');
+  }
+
+  componentDidUpdate() {
+    console.log(this.props.navigation?.state?.params?.search, 'searching');
+    // if(this.props.navigation?.state?.params?.search) {
+    //   let temp = []
+    //   this.setState({ isLoading: true })
+    //   firestore()
+    //     .collection('sneakers')
+    //     .where(this.props.navigation?.state?.params?.search, '==', true)
+    //     .get()
+    //     .then(querySnapshot1 => {
+    //       temp.push(querySnapshot1.data())
+    //       this.setState({ data: temp });
+    //     });
+    // }
   }
 
   async sizeCounter() {
@@ -98,74 +85,137 @@ class Search extends Component {
       let temp = this.state.sizes.concat(number.toString());
       await this.setState({ sizes: temp });
     }
-    // console.log(this.state.sizes);
   }
 
-  async searchSize(selectedSize){
-    console.log('[SIZE]', selectedSize);
-    const {size} = this.state
-    this.setState({size: selectedSize})
-    firestore().collection('sizes').doc(selectedSize).collection('owns').get()
-      .then((doc) => {
-        console.log('---------', doc);
-        doc.docs.map(item => {
-          // let tempData = this.state.data.concat(item.data())
-          // this.setState({ data: tempData })
-        })
-      })
-  }
-
-  selectBrand() {
-    const {title, type, size} = this.state
-    console.log(title, type);
+  searchAll = async (selectedSize) => {
+    let temp = []
     this.setState({ isLoading: true })
-    if(title !== null && type !== null && size !== null){
-      firestore()
-      .collection('sneakers')
-      .where('search.' + title, '==', true)
-      .where('type', '==', type)
-      .limit(10)
-      .get()
-      .then(querySnapshot => {
-        console.log('Total sneakers: ', querySnapshot.size);
-        querySnapshot.forEach(async documentSnapshot => {
-          this.setState({ isLoading: false })
-          documentSnapshot.data().map(el => {
-            console.log('======================', el);
-          })
-          let tempData = this.state.data.concat(documentSnapshot.data())
-          await this.setState({ data: tempData })
-        });
-      });
-    }
-    if(title === null && type === null){
-      firestore()
-      .collection('sneakers')
-      .limit(10)
-      .get()
-      .then(querySnapshot => {
-        console.log('Total sneakers: ', querySnapshot.size);
-        querySnapshot.forEach(async documentSnapshot => {
-          this.setState({ isLoading: false })
-          let tempData = this.state.data.concat(documentSnapshot.data())
-          await this.setState({ data: tempData })
-        });
-      });
-    }
     firestore()
-      .collection('sneakers')
-      .where('search.' + title, '==', true)
-      .limit(10)
+      .collection('sizes')
+      .doc(selectedSize)
+      .collection('owns')
       .get()
       .then(querySnapshot => {
-        console.log('Total sneakers: ', querySnapshot.size);
-        querySnapshot.forEach(async documentSnapshot => {
-          this.setState({ isLoading: false })
-          let tempData = this.state.data.concat(documentSnapshot.data())
-          await this.setState({ data: tempData })
-          // console.log('Sneakers:================ ', documentSnapshot.id, documentSnapshot.data());
-        });
+        this.setState({ isLoading: false })
+        if (querySnapshot.size > 0) {
+          querySnapshot.forEach(async documentSnapshot => {
+            firestore()
+              .collection('sneakers')
+              .doc(documentSnapshot.id)
+              .get()
+              .then(querySnapshot1 => {
+                temp.push(querySnapshot1.data())
+                this.setState({ data: temp });
+              });
+          });
+        } else {
+          this.setState({ data: temp });
+        }
       });
+  }
+
+  searchWithBrand = async (selectedSize, selectedBrand) => {
+    let temp = []
+    this.setState({ isLoading: true })
+    firestore()
+      .collection('sizes')
+      .doc(selectedSize)
+      .collection('owns')
+      .where('brand', '==', selectedBrand)
+      .get()
+      .then(querySnapshot => {
+        this.setState({ isLoading: false })
+        if (querySnapshot.size > 0) {
+          querySnapshot.forEach(async documentSnapshot => {
+            firestore()
+              .collection('sneakers')
+              .doc(documentSnapshot.id)
+              .get()
+              .then(querySnapshot1 => {
+                temp.push(querySnapshot1.data())
+                this.setState({ data: temp });
+              });
+          });
+        } else {
+          this.setState({ data: temp });
+        }
+      });
+  }
+
+  searchWithType = async (selectedType, selectedSize) => {
+    let temp = []
+    this.setState({ isLoading: true })
+    firestore()
+      .collection('sizes')
+      .doc(selectedSize)
+      .collection('owns')
+      .where('type', '==', selectedType)
+      .get()
+      .then(querySnapshot => {
+        this.setState({ isLoading: false })
+        if (querySnapshot.size > 0) {
+          querySnapshot.forEach(async documentSnapshot => {
+            firestore()
+              .collection('sneakers')
+              .doc(documentSnapshot.id)
+              .get()
+              .then(querySnapshot1 => {
+                temp.push(querySnapshot1.data())
+                this.setState({ data: temp });
+              });
+          });
+        } else {
+          this.setState({ data: temp });
+        }
+      });
+  }
+
+  searchWithTypeAndBrand = async (selectedType, selectedSize, selectedBrand) => {
+    let temp = []
+    this.setState({ isLoading: true })
+    firestore()
+      .collection('sizes')
+      .doc(selectedSize)
+      .collection('owns')
+      .where('brand', '==', selectedBrand)
+      .where('type', '==', selectedType)
+      .get()
+      .then(querySnapshot => {
+        this.setState({ isLoading: false })
+        if (querySnapshot.size > 0) {
+          querySnapshot.forEach(async documentSnapshot => {
+            firestore()
+              .collection('sneakers')
+              .doc(documentSnapshot.id)
+              .get()
+              .then(querySnapshot1 => {
+                temp.push(querySnapshot1.data())
+                this.setState({ data: temp });
+              });
+          });
+        } else {
+          this.setState({ data: temp });
+        }
+      });
+  }
+
+
+
+
+  search = async (selectedType, selectedSize, selectedBrand) => {
+    if (selectedType !== 'All Type' && selectedBrand !== 'All Brands') {
+      console.log('searchWithTypeAndBrand-----------');
+      this.searchWithTypeAndBrand(selectedType, selectedSize, selectedBrand);
+    } else if (selectedType !== 'All Type' && selectedBrand === 'All Brands') {
+      console.log('searchWithType----------');
+      this.searchWithType(selectedType, selectedSize);
+    } else if (selectedType === 'All Type' && selectedBrand !== 'All Brands') {
+      console.log('searchWithBrand----------------');
+      this.searchWithBrand(selectedSize, selectedBrand);
+    } else {
+      console.log('searchAll------------');
+      this.searchAll(selectedSize);
+    }
   }
 
   renderBrands(brand) {
@@ -180,8 +230,8 @@ class Search extends Component {
             justifyContent: 'space-between',
             height: height,
           }}>
-          {data && data.length >0 && data.map((el, index) => {
-            return <Card key={index} item={el} style={{height: '15%'}} page={'search'}/>;
+          {data && data.length > 0 && data.map((el, index) => {
+            return <Card key={index} item={el} style={{ height: '15%' }} page={'search'} />;
           })}
           {
             isLoading === true && (
@@ -201,8 +251,7 @@ class Search extends Component {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
-              height: response.data ? null : height,
-              // flex: 1,
+              height: height,
               paddingLeft: 10,
               paddingRight: 10,
               alignItems: 'center',
@@ -229,15 +278,16 @@ class Search extends Component {
                     },
                   ]}
                   mode={'dropdown'}
-                  onValueChange={(itemValue, itemIndex) =>
+                  onValueChange={(itemValue, itemIndex) => {
                     this.setState({ selectedType: itemValue })
-                  }>
+                    this.search(itemValue, this.state.selectedSize, this.state.selectedBrand);
+                  }}>
                   {type.map((el, index) => {
                     return (
                       <Picker.Item
                         key={index}
-                        label={el.type}
-                        value={el.type}
+                        label={el}
+                        value={el}
                       />
                     );
                   })}
@@ -258,9 +308,10 @@ class Search extends Component {
                     },
                   ]}
                   mode={'dropdown'}
-                  onValueChange={(itemValue, itemIndex) =>
-                    this.searchSize(itemValue)
-                  }>
+                  onValueChange={(itemValue, itemIndex) => {
+                    this.setState({ selectedSize: itemValue });
+                    this.search(this.state.selectedType, itemValue, this.state.selectedBrand);
+                  }}>
                   {this.state.sizes.length > 0 &&
                     this.state.sizes.map((el, index) => {
                       return <Picker.Item key={index} label={el} value={el} />;
@@ -275,7 +326,11 @@ class Search extends Component {
               style={{ position: 'absolute', top: 100 }}>
               <View style={{ flex: 1, flexDirection: 'row', marginTop: 80 }}>
                 <TouchableOpacity
-                  onPress={() => this.setState({selectedBrand: null})}
+                  onPress={() => {
+                    this.setState({ selectedBrand: null })
+                    this.search(this.state.selectedType, this.state.selectedSize, 'All Brands');
+                  }
+                  }
                   style={[
                     Style.cardStyleWithShadow,
                     {
@@ -292,7 +347,10 @@ class Search extends Component {
                 {brands.map(el => {
                   return (
                     <TouchableOpacity
-                      onPress={() => this.setState({selectedBrand: el.title})}
+                      onPress={() => {
+                        this.setState({ selectedBrand: el.title });
+                        this.search(this.state.selectedType, this.state.selectedSize, el.title);
+                      }}
                       style={[
                         {
                           height: '80%',
