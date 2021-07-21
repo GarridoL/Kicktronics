@@ -26,8 +26,8 @@ class ShippingAddress extends Component {
 
     render(){
         return(
-            <View>
-                <Text>samplee</Text>
+            <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+                <Text>No Address found click '+' to add your shipping address</Text>
             </View>
         )
     }

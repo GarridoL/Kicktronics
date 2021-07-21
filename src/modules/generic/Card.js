@@ -16,6 +16,7 @@ import {faUser} from '@fortawesome/free-solid-svg-icons';
 import {faImage} from '@fortawesome/free-regular-svg-icons';
 import RNFetchBlob from 'rn-fetch-blob';
 import {isInteger} from 'formik';
+import {connect} from 'react-redux';
 
 class Card extends Component {
   constructor(props) {
@@ -41,10 +42,15 @@ class Card extends Component {
 
   redirect(route, item) {
     console.log(item);
-    console.log('NAVIGATION', this.props.navigation);
-    this.props.navigation.navigate(route, {
-      details: item,
-    });
+    console.log('NAVIGATION', this.props.state);
+    const {user} = this.props.state
+    if(user !== null){
+      this.props.navigation.navigate(route, {
+        details: item,
+      });
+    }else{
+      this.props.navigation.navigate('noAccountStack');
+    }
   }
 
   // componentDidMount(){
@@ -174,4 +180,10 @@ class Card extends Component {
   }
 }
 
-export default Card;
+const mapStateToProps = state => ({state: state});
+
+const mapDispatchToProps = dispatch => {
+  const {actions} = require('@redux');
+  return {};
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

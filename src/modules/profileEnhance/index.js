@@ -26,7 +26,6 @@ import {
   faHeadset,
   faShoppingBag,
 } from '@fortawesome/free-solid-svg-icons';
-import {ClipPath} from 'react-native-svg';
 
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
@@ -37,9 +36,7 @@ class ProfileEnhance extends Component {
     this.state = {};
   }
 
-  async componentDidMount() {
-    console.log(this.props.navigation.state);
-  }
+  async componentDidMount() {}
 
   renderContent() {
     return (
@@ -148,63 +145,11 @@ class ProfileEnhance extends Component {
     );
   }
 
-  renderLogin() {
-    return (
-      <View>
-        <View
-          style={{
-            height: height,
-            // flex: 1,
-            backgroundColor: '#F5F5F5',
-            paddingLeft: 10,
-            paddingRight: 10,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}>
-          <TouchableOpacity
-            style={{
-              backgroundColor: Color.white,
-              borderColor: 'gray',
-              borderWidth: 1,
-              height: 30,
-              width: width - 80,
-              marginBottom: 20,
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'white',
-              borderRadius: 5,
-            }}
-            onPress={() => this.props.navigation.navigate('loginStack')}>
-            <Text>Sign In</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={{
-              backgroundColor: Color.white,
-              borderColor: 'gray',
-              borderWidth: 1,
-              height: 30,
-              width: width - 80,
-              marginBottom: 20,
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'white',
-              borderRadius: 5,
-            }}
-            onPress={() => this.props.navigation.navigate('registerStack')}>
-            <Text>Sign Up</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }
-
   render() {
     const {user} = this.props.navigation.state.params;
     return (
       <View>
-        {user !== null && this.renderContent()}
-        {user === null && this.renderLogin()}
+        {this.renderContent()}
         <ModalOptions navigation={this.props.navigation}></ModalOptions>
         <Footer navigation={this.props.navigation} index={4} />
       </View>

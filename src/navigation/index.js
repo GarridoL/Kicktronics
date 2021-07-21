@@ -28,6 +28,8 @@ import SupportStack from 'modules/helpSupport/indexDrawer.js'
 import PurchaseHistory from 'modules/purchase/Drawer.js'
 import Options from 'modules/products/payment/Options.js'
 import AddressStack from 'modules/products/payment/AdressDrawer.js'
+import AddAddress from 'modules/products/payment/AddAddress.js'
+import NoAccount from 'modules/generic/NoAccount.js'
 // Landing stack
 const LandingPageStack = createStackNavigator(
   {
@@ -125,6 +127,8 @@ const PrimaryNav = createStackNavigator(
     purchaseStack: { screen: PurchaseHistory},
     optionsStack: { screen: Options},
     addressStack: { screen: AddressStack},
+    addAddressStack: { screen: AddAddress},
+    noAccountStack: { screen: NoAccount},
     // editProfileStack: { screen: TermsStack},
   },
   {
