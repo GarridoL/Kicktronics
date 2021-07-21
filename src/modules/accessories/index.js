@@ -77,7 +77,7 @@ class Accessories extends Component {
                         <Spinner mode="overlay" />
                     )
                 }
-                <Footer navigation={this.props.navigation} index={4} />
+                <Footer navigation={this.props.navigation} index={1} />
             </SafeAreaView>
         )
     }
