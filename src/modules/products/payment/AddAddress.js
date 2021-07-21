@@ -39,15 +39,14 @@ class AddAddress extends Component {
   addCountries() {
       const {firstName, lastName, country, postalCode, countryCode, city, phone, street} = this.state;
       let parameter = {
-          firstName: firstName,
-          lastName: lastName,
-          postalCode: postalCode,
-          countryCode: countryCode,
-          city: city,
-          phone: phone,
-          street: street,
+          shipping_first_name: firstName,
+          shipping_last_name: lastName,
+          shipping_postal_code: postalCode,
+          shipping_country_code: countryCode,
+          shipping_city: city,
+          shipping_phone: phone,
+          shipping_address_line_1: street,
       }
-
       console.log(parameter);
   }
 
