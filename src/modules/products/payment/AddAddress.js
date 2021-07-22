@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   View,
   Image,
@@ -6,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
+  Alert,
 } from 'react-native';
 import Style from './Style.js';
 import {connect} from 'react-redux';
@@ -14,7 +16,6 @@ import SubHeader from 'modules/generic/SubHeader.js';
 import Footer from 'modules/generic/Footer.js';
 import Card from 'modules/generic/Card.js';
 import {DateTime, Spinner} from 'components';
-import {Alert} from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import firestore from '@react-native-firebase/firestore';
 import countries from './countries';
@@ -25,6 +26,7 @@ class AddAddress extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: false,
       firstName: null,
       lastName: null,
       country: null,
@@ -37,20 +39,48 @@ class AddAddress extends Component {
   }
 
   addCountries() {
-      const {firstName, lastName, country, postalCode, countryCode, city, phone, street} = this.state;
-      let parameter = {
-          shipping_first_name: firstName,
-          shipping_last_name: lastName,
-          shipping_postal_code: postalCode,
-          shipping_country_code: countryCode,
-          shipping_city: city,
-          shipping_phone: phone,
-          shipping_address_line_1: street,
-      }
-      console.log(parameter);
+    const {
+      firstName,
+      lastName,
+      country,
+      postalCode,
+      countryCode,
+      city,
+      phone,
+      street,
+    } = this.state;
+    const {user} = this.props.state;
+    let parameter = {
+      shipping_first_name: firstName,
+      shipping_last_name: lastName,
+      shipping_postal_code: postalCode,
+      shipping_country_code: countryCode.value,
+      shipping_city: city,
+      shipping_phone: phone,
+      shipping_address_line_1: street,
+    };
+    if (Object.values(parameter).includes(null)) {
+      Alert.alert(
+        'Error Message',
+        'Please fill up all fields',
+        [{text: 'OK'}],
+        {cancelable: false},
+      );
+    } else {
+      this.setState({isLoading: true});
+      firestore()
+        .collection('users')
+        .doc(user.doc_id)
+        .update(parameter)
+        .then(res => {
+          this.setState({isLoading: false});
+          this.props.navigation.pop();
+        });
+    }
   }
 
   render() {
+    const {isLoading} = this.state;
     return (
       <View
         style={{
@@ -95,16 +125,16 @@ class AddAddress extends Component {
             />
           </View>
           <TextInput
-              style={{
-                ...BasicStyles.basicFormControl,
-                marginBottom: 20,
-                borderColor: 'black',
-                width: '100%',
-              }}
-              keyboardType="numeric"
-              onChangeText={phone => this.setState({phone})}
-              placeholder={'Phone Number'}
-            />
+            style={{
+              ...BasicStyles.basicFormControl,
+              marginBottom: 20,
+              borderColor: 'black',
+              width: '100%',
+            }}
+            keyboardType="numeric"
+            onChangeText={phone => this.setState({phone})}
+            placeholder={'Phone Number'}
+          />
           <TextInput
             style={{
               ...BasicStyles.basicFormControl,
@@ -138,9 +168,10 @@ class AddAddress extends Component {
               placeholder={'Postal Code'}
             />
           </View>
-          <View style={{width: '100%', alignItems: 'center', borderBottomWidth: 1}}>
+          <View
+            style={{width: '100%', alignItems: 'center', borderBottomWidth: 1}}>
             <Picker
-              selectedValue={this.state.selectedType}
+              selectedValue={this.state.countryCode}
               style={[
                 Style.cardStyleWithShadow,
                 {
@@ -156,10 +187,13 @@ class AddAddress extends Component {
                 this.setState({countryCode: itemValue});
               }}>
               {countries.map((el, index) => {
-                return <Picker.Item key={index} label={el.label} value={el.value} />;
+                return (
+                  <Picker.Item key={index} label={el.label} value={el} />
+                );
               })}
             </Picker>
           </View>
+          {isLoading ? <Spinner mode="overlay" /> : null}
         </View>
       </View>
     );

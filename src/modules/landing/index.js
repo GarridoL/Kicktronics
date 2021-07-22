@@ -51,6 +51,7 @@ class LandingPage extends Component {
             response.forEach(async el => {
               let data = el.data();
               if (el.data() !== null) {
+                el.data()['doc_id'] = el.id
                 login(el.data(), data.customerId);
                 this.setState({isLoading: false});
                 this.props.navigation.navigate('homePageStack');

@@ -39,11 +39,13 @@ class Checkout extends Component {
       sizes: ['1'],
       details: null,
       showModal: false,
+      user: null
     };
   }
 
   componentDidMount() {
     const {data} = this.props.navigation.state.params;
+    const {user} = this.props.state;
     // console.log('<<<<<<<<<<<<<<<', data);
     this.setState({showModal: true});
     firestore()
@@ -53,6 +55,21 @@ class Checkout extends Component {
       .then(querySnapshot => {
         this.setState({details: querySnapshot.data()});
       });
+    firestore()
+      .collection('users')
+      .where('customerId', '==', user.customerId)
+      .get()
+      .then(res => {
+        res.forEach(element => {
+          this.setState({user: element.data()});
+        });
+      });
+  }
+
+  redirect(route) {
+    if (route === 'optionsStack') {
+      this.props.navigation.navigate(route);
+    }
   }
 
   renderModal() {
@@ -133,7 +150,7 @@ class Checkout extends Component {
   }
 
   render() {
-    const {sizes, details} = this.state;
+    const {sizes, details, user} = this.state;
     const {data} = this.props.navigation.state.params;
     return (
       <View style={{flex: 1}}>
@@ -182,9 +199,15 @@ class Checkout extends Component {
                   marginBottom: '3%',
                 }}>
                 <Text>Ship to</Text>
-                <TouchableOpacity>
+                {
+                  user && user.shipping_country_code === undefined ? (
+                <TouchableOpacity onPress={() => this.redirect('optionsStack')}>
                   <Text style={{color: '#1aa3ff'}}>Add address</Text>
                 </TouchableOpacity>
+                  ): (
+                    <Text>{user.shipping_first_name} {user.shipping_last_name}</Text>
+                  )
+                }
               </View>
               <View
                 style={{
@@ -233,4 +256,13 @@ class Checkout extends Component {
   }
 }
 
-export default Checkout;
+const mapStateToProps = state => ({state: state});
+
+const mapDispatchToProps = dispatch => {
+  const {actions} = require('@redux');
+  return {
+    updateUser: user => dispatch(actions.updateUser(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

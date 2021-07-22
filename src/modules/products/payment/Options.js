@@ -29,7 +29,19 @@ class Options extends Component {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const {user} = this.props.state;
+    this.setState({isLoading: true});
+    firestore()
+      .collection('users')
+      .where('customerId', '==', user.customerId)
+      .get()
+      .then(res => {
+        res.forEach(element => {
+          this.setState({user: element.data(), isLoading: false});
+        });
+      });
+  }
 
   proceedToNextPage(flag) {
     const {page, isLoading} = this.state;
@@ -62,6 +74,7 @@ class Options extends Component {
 
   render() {
     const {page, isLoading, user} = this.state;
+    console.log('USER::=============================================', user);
     return (
       <View style={{flex: 1}}>
         <View
@@ -104,11 +117,16 @@ class Options extends Component {
             </Text>
           </View>
           <View style={{position: 'absolute', top: 640}}>
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('addressStack')}
-              style={[Style.btnWithShadow, {marginBottom: 10}]}>
-              <Text>Add an Address</Text>
-            </TouchableOpacity>
+            {user && user.shipping_country_code === undefined ? (
+              <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('addressStack')}
+                style={[Style.btnWithShadow, {marginBottom: 10}]}>
+                <Text>Add an Address</Text>
+              </TouchableOpacity>
+            ) : (
+              <View>
+              </View>
+            )}
             <TouchableOpacity style={[Style.btnWithShadow]}>
               <Text>Add payment method</Text>
             </TouchableOpacity>
