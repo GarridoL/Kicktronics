@@ -10,15 +10,17 @@ buildscript {
         kotlinVersion = "1.3.72"
         googlePlayServicesVersion = "11.8.0"
         gradle3EXPERIMENTAL = "yes"
+        firebaseMessagingVersion = "21.1.0"
     }
     repositories {
         google()
         jcenter()
+        mavenLocal()
     }
     dependencies {
         classpath("com.android.tools.build:gradle:4.1.0")
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath 'com.google.gms:google-services:4.0.2'
+        classpath 'com.google.gms:google-services:4.3.8'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -26,7 +28,9 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         mavenLocal()
+        jcenter()
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url("$rootDir/../node_modules/react-native/android")
@@ -36,8 +40,6 @@ allprojects {
             url("$rootDir/../node_modules/jsc-android/dist")
         }
 
-        google()
-        jcenter()
         maven { url 'https://www.jitpack.io' }
     }
 }

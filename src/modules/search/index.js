@@ -298,6 +298,36 @@ class Search extends Component {
                 </Picker>
               </View>
               <View style={{ width: '50%', alignItems: 'center' }}>
+                <Text>Select your type</Text>
+                <Picker
+                  selectedValue={this.state.selectedType}
+                  style={[
+                    Style.cardStyleWithShadow,
+                    {
+                      height: 50,
+                      width: 150,
+                      marginTop: 10,
+                      justifyContent: 'center',
+                      backgroundColor: 'none',
+                    },
+                  ]}
+                  mode={'dropdown'}
+                  onValueChange={(itemValue, itemIndex) => {
+                    this.setState({ selectedType: itemValue })
+                    this.search(itemValue, this.state.selectedSize, this.state.selectedBrand);
+                  }}>
+                  {type.map((el, index) => {
+                    return (
+                      <Picker.Item
+                        key={index}
+                        label={el}
+                        value={el}
+                      />
+                    );
+                  })}
+                </Picker>
+              </View>
+              <View style={{ width: '50%', alignItems: 'center' }}>
                 <Text>Select your size</Text>
                 <Picker
                   selectedValue={this.state.selectedSize}
