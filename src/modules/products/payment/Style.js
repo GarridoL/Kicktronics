@@ -41,5 +41,5 @@ export default {
         // borderColor: 'gray',
         // borderRadius: BasicStyles.standardBorderRadius,
         // ...BasicStyles.standardShadow,
-      }
+    }
 }

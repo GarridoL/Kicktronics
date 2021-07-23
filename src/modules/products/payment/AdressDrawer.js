@@ -14,7 +14,7 @@ class HeaderOptions extends Component {
   }
   back = () => {
     this.props.navigationProps.pop()
-  };
+  };  
   render() {
     const { theme } = this.props.state;
     return (
