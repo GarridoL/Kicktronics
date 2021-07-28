@@ -16,7 +16,7 @@ import DemandsStack from 'modules/demands/DemandsDrawer.js';
 import HomePageStack from 'modules/homepage/HomeDrawer.js';
 import AccessoriesStack from 'modules/accessories/AccessoriesDrawer.js'
 import UpcomingStack from 'modules/upcoming/UpcomingDrawer.js'
-import SearchStack from 'modules/search/SearchDrawer.js'
+import Search from 'modules/search'
 import ProfileStack from 'modules/profileEnhance/ProfileDrawer.js'
 import Style from './Style.js';
 import { connect } from 'react-redux'
@@ -130,7 +130,7 @@ const _StackNavigator = createStackNavigator({
     }),
   },
   Search: {
-    screen: SearchStack,
+    screen: Search,
     navigationOptions: ({ navigation }) => ({
       title: null,
       headerLeft: <MenuDrawerStructure navigationProps={navigation} />,
