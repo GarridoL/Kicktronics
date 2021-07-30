@@ -318,7 +318,7 @@ class Search extends Component {
                 <Card
                   key={index}
                   item={el}
-                  style={{ height: 180, marginTop: 10 }}
+                  style={{ height: 150, marginTop: 10 }}
                   route={'detailsStack'}
                   page={'search'}
                   navigation={this.props.navigation}
